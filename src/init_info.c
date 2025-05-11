@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/09 18:49:58 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/11 19:49:59 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	set_witdh_height(t_map *map)
 	printf("\n\n");
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("line1: %s", line);
+		//printf("line1: %s", line);
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
 			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
 				3) == 0 || ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line,
