@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/11 19:49:59 by aldara           ###   ########.fr       */
+/*   Updated: 2025/05/11 22:40:31 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	print_map(t_map *map)
 	printf("EA Texture: %s\n", map->ea_texture);
 	printf("Map:\n");
 	i = 0;
-	while(i < map->height)
+	while (i < map->height)
 	{
-		printf("%d: %s", i, map->map[i]);
+		printf("%d:	%s\n", i, map->map[i]);
 		i++;
 	}
 	printf("\n");
@@ -55,10 +55,8 @@ void	set_witdh_height(t_map *map)
 	max_width = 0;
 	height = 0;
 	fd = open(map->path, O_RDONLY);
-	printf("\n\n");
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		//printf("line1: %s", line);
 		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
 			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
 				3) == 0 || ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line,
@@ -85,7 +83,7 @@ void	fill_map(t_map *map)
 	int		fd;
 	int		i;
 
-	map->map = malloc(sizeof(int *) * map->height);
+	map->map = malloc(sizeof(char *) * map->height);
 	if (!map->map)
 	{
 		ft_putstr_fd("Error: Memory allocation failed\n", 2);
@@ -93,10 +91,8 @@ void	fill_map(t_map *map)
 	}
 	fd = open(map->path, O_RDONLY);
 	i = 0;
-	printf("\n\n");
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("L2: %s", line);
 		if (line[0] != '\n' && ft_strncmp(line, "NO ", 3) != 0
 			&& ft_strncmp(line, "SO ", 3) != 0 && ft_strncmp(line, "WE ",
 				3) != 0 && ft_strncmp(line, "EA ", 3) != 0 && ft_strncmp(line,
@@ -113,6 +109,72 @@ void	clean_buffer(int fd)
 
 	while ((line = get_next_line(fd)) != NULL)
 		free(line);
+}
+
+void	replace_spaces(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (map->map[i][j] == '\n')
+			{
+				while (j < map->width)
+				{
+					map->map[i][j] = map->map[i][j - 1];
+					j++;
+				}
+				break ;
+			}
+			else if (map->map[i][j] != '0' && map->map[i][j] != '1'
+				&& map->map[i][j] != 'N' && map->map[i][j] != 'S'
+				&& map->map[i][j] != 'E' && map->map[i][j] != 'W')
+				map->map[i][j] = '1';
+			j++;
+		}
+		map->map[i][j] = '\0';
+		i++;
+	}
+}
+t_player	*init_player(t_map *map)
+{
+	t_player	*player;
+	int			x;
+	int			y;
+
+	player = malloc(sizeof(t_player));
+	if (!player)
+	{
+		ft_putstr_fd("Error: Memory allocation failed\n", 2);
+		return (NULL);
+	}
+	x = 0;
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
+				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
+			{
+				player->x = x;
+				player->y = y;
+				player->init_x = x;
+				player->init_y = y;
+				player->direction = map->map[y][x];
+				return (player);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (player);
 }
 
 t_map	*init_map(char *map_path)
@@ -136,7 +198,6 @@ t_map	*init_map(char *map_path)
 	}
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		printf("LINE: %s", line);
 		if (ft_strncmp(line, "NO ", 3) == 0)
 			map->no_texture = ft_strdup(ft_strtrim(line + 3, " \n"));
 		else if (ft_strncmp(line, "SO ", 3) == 0)
@@ -158,18 +219,6 @@ t_map	*init_map(char *map_path)
 	close(fd);
 	set_witdh_height(map);
 	fill_map(map);
+	replace_spaces(map);
 	return (map);
-}
-
-int	check_name_map(char *str)
-{
-	int	len;
-
-	len = ft_strlen(str);
-	if (len < 5)
-		return (1);
-	if (str[len - 4] != '.' || str[len - 3] != 'c' || str[len - 2] != 'u'
-		|| str[len - 1] != 'b')
-		return (1);
-	return (0);
 }

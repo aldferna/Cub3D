@@ -1,3 +1,6 @@
+CC = cc
+CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+
 NAME = cub3D
 
 LIBFT_DIR = ./libft
@@ -5,11 +8,9 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS = 	./src/main.c \
 		./src/init_info.c \
+		./src/check_map.c \
 
 OBJS = $(SRCS:.c=.o)
-
-CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
 
 MINILIBX := ./MLX42/build
 MLX_HEADERS := -I$(MINILIBX) -I./inc
@@ -43,6 +44,6 @@ re: fclean all
 
 .PHONY: all clean fclean re
 
-
+# Eliminar build
 #  806  cmake -B build
 #  808  cmake --build build -j4
