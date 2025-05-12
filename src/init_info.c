@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/12 13:33:06 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:24:58 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ int	get_width(char *line)
 	while (line[width] != '\n' && line[width] != '\0')
 		width++;
 	return (width);
+}
+
+void	clean_buffer(int fd)
+{
+	char	*line;
+
+	while ((line = get_next_line(fd)) != NULL)
+		free(line);
 }
 
 void	set_witdh_height(t_map *map)
@@ -101,14 +109,12 @@ void	fill_map(t_map *map)
 		free(line);
 	}
 	close(fd);
-}
-
-void	clean_buffer(int fd)
-{
-	char	*line;
-
-	while ((line = get_next_line(fd)) != NULL)
-		free(line);
+	clean_buffer(fd);
+	if (!map->map[0]) //|| !map->map[1])
+	{
+		printf("Error: Missing map data\n");
+		exit(2);
+	}
 }
 
 void	replace_spaces(t_map *map)
@@ -132,9 +138,6 @@ void	replace_spaces(t_map *map)
 				break ;
 			}
 			else if (ft_isspace(map->map[i][j]))
-			// else if (map->map[i][j] != '0' && map->map[i][j] != '1'
-			// 	&& map->map[i][j] != 'N' && map->map[i][j] != 'S'
-			// 	&& map->map[i][j] != 'E' && map->map[i][j] != 'W')
 				map->map[i][j] = '1';
 			j++;
 		}
@@ -212,9 +215,32 @@ t_map	*init_map(char *map_path)
 			map->floor_color = ft_strdup(ft_strtrim(line + 2, " \n"));
 		else if (ft_strncmp(line, "C ", 2) == 0)
 			map->sky_color = ft_strdup(ft_strtrim(line + 2, " \n"));
-		else if (map->sky_color && line[0] != '\n')
+		else if (map->sky_color && line[0] != '\n') //map->floor_color && map->ea_texture && map->we_texture && map->so_texture && map->no_texture &&
+		{
+			while (line && line[0] != '\n')
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
+			while (line && line[0] == '\n')
+			{
+				free(line);
+				line = get_next_line(fd);
+			}
+			if (line)
+			{
+				free(line);
+				printf("Error: Data after map\n");
+				exit(2);
+			}
 			break ;
+		}	
 		free(line);
+	}
+	if (!map->sky_color || !map->floor_color || !map->ea_texture || !map->we_texture || !map->so_texture || !map->no_texture)
+	{
+		printf("Error: Missing data\n");
+		exit(2);
 	}
 	free(line);
 	clean_buffer(fd);
