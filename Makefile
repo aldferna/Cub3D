@@ -51,8 +51,7 @@ re: fclean all
 
 #cositaass a probar
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester (mirar tb color y texture)
-#	fail: el mapa es lo ultimo (como esta bien identificado no da error/
-#		 el identificador solo, sin espacio tb da error)
+#	fail: 
 #	fail1: solo esta el mapa
 #	fail2: falta el mapa
 #	fail3: mas de 1 jugador

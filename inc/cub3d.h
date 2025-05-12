@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/11 22:43:48 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/12 17:26:51 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ typedef struct s_map
 	char		**map;
 	char		*path;
 	char		*floor_color;
+	int			f_col;
 	char		*sky_color;
+	int			s_col;
 	char		*no_texture;
 	char		*so_texture;
 	char		*we_texture;
