@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/12 19:10:47 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:46:16 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void print_map_copy(char **map_copy)
+{
+	int i;
+
+	i = 0;
+	while (map_copy[i])
+	{
+		printf("%s\n", map_copy[i]);
+		i++;
+	}
+}
 
 void	print_map(t_map *map)
 {
@@ -128,7 +140,7 @@ void	replace_spaces(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
-			if (map->map[i][j] == '\n')
+			if (map->map[i][j] == '\n' || map->map[i][j] == '\0')
 			{
 				while (j < map->width)
 				{
@@ -224,9 +236,6 @@ int	create_color(char *str_color)
 
 int	check_texture(char *str, char *tag)
 {
-	int	i;
-
-	i = 0;
 //	printf("%s\n", str);
 	if (!str || !str[0])
 		return (1);
