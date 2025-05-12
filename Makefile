@@ -48,15 +48,10 @@ re: fclean all
 #  806  cmake -B build
 #  808  cmake --build build -j4
 
+#https://github.com/MariaAguiar/cub3D_invalid_map_tester
+#faltan los 3 "mapfail" que he puesto en el proyecto
 
-#cositaass a probar
-#https://github.com/MariaAguiar/cub3D_invalid_map_tester (mirar tb color y texture)
-#	fail: 
-#	fail1: solo esta el mapa
-#	fail2: falta el mapa
-#	fail3: mas de 1 jugador
-#	fail4: falta jugador
-#	fail5: archivo vacio
-#	fail6: linea vacia/islas
-#	fail7: solo 1
-#	fail8: jugador fuera mapa
+#➜  cubgit git:(main) ✗ make && ./cub3D map.cub 
+#make: Nothing to be done for 'all'.
+#Error: Map is not surrounded by walls
+#Error: Invalid map

@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/12 17:41:28 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:10:47 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,22 +182,21 @@ t_player	*init_player(t_map *map)
 	return (player);
 }
 
-//return (r << 16 | g << 8 | b);
-
 int	create_color(char *str_color)
 {
-	int	i;
-	char **rgb;
-	int r;
-	int g;
-	int b;
+	int		i;
+	char	**rgb;
+	int		r;
+	int		g;
+	int		b;
 
 	i = 0;
 	while (str_color[i])
 	{
 		if (!ft_isdigit(str_color[i]) && str_color[i] != ',')
 		{
-			ft_putstr_fd("Error: Color values must be numbers separated by comas\n", 2);
+			ft_putstr_fd("Error: Color values must be numbers separated by comas (no spaces)\n",
+				2);
 			exit(2);
 		}
 		i++;
@@ -216,10 +215,36 @@ int	create_color(char *str_color)
 	b = ft_atoi(rgb[2]);
 	if (r > 255 || g > 255 || b > 255)
 	{
-		ft_putstr_fd("Error: RGB channels cannot exceed value 255 (1byte)\n", 2);
+		ft_putstr_fd("Error: RGB channels cannot exceed value 255 (1byte)\n",
+			2);
 		exit(2);
 	}
 	return (r << 16 | g << 8 | b);
+}
+
+int	check_texture(char *str, char *tag)
+{
+	int	i;
+
+	i = 0;
+//	printf("%s\n", str);
+	if (!str || !str[0])
+		return (1);
+	if (ft_strncmp(str, tag, 2) == 0)
+		return (1);
+	if ((str[0] != '.' && !ft_isalnum(str[0])))
+		return (1);
+	return (0);
+}
+
+int	check_textures(t_map map)
+{
+	if (check_texture(map.no_texture, "NO") == 1
+		|| check_texture(map.so_texture, "SO") == 1
+		|| check_texture(map.we_texture, "WE") == 1
+		|| check_texture(map.ea_texture, "EA") == 1)
+		return (1);
+	return (0);
 }
 
 t_map	*init_map(char *map_path)
@@ -241,7 +266,7 @@ t_map	*init_map(char *map_path)
 		perror("Error: Map doesn't exist");
 		exit(2);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+while ((line = get_next_line(fd)) != NULL)
 	{
 		if (ft_strncmp(line, "NO ", 3) == 0)
 			map->no_texture = ft_strdup(ft_strtrim(line + 3, " \n"));
@@ -278,11 +303,9 @@ t_map	*init_map(char *map_path)
 		free(line);
 	}
 	if (!map->sky_color || !map->sky_color[0] || !map->floor_color
-		|| !map->floor_color[0] || !map->ea_texture || !map->ea_texture[0]
-		|| !map->we_texture || !map->we_texture[0] || !map->so_texture
-		|| !map->so_texture[0] || !map->no_texture || !map->no_texture[0])
+		|| !map->floor_color[0] || check_textures(*map) == 1)
 	{
-		printf("Error: Missing data or syntax mistake\n");
+		ft_putstr_fd("Error: Missing data or syntax mistake\n", 2);
 		exit(2);
 	}
 	map->f_col = create_color(map->floor_color);

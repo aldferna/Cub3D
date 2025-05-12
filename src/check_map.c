@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 21:41:46 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/12 16:19:25 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/12 19:10:34 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ static int	check_char_map(t_map map)
 		x = 0;
 		while (x < map.width)
 		{
+			//print_map(&map);
 			if (map.map[y][x] && map.map[y][x] != '1' && map.map[y][x] != '0'
 				&& map.map[y][x] != 'N' && map.map[y][x] != 'S'
 				&& map.map[y][x] != 'E' && map.map[y][x] != 'W'
