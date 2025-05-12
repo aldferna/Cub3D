@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/11 22:40:31 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:33:06 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,10 @@ void	replace_spaces(t_map *map)
 				}
 				break ;
 			}
-			else if (map->map[i][j] != '0' && map->map[i][j] != '1'
-				&& map->map[i][j] != 'N' && map->map[i][j] != 'S'
-				&& map->map[i][j] != 'E' && map->map[i][j] != 'W')
+			else if (ft_isspace(map->map[i][j]))
+			// else if (map->map[i][j] != '0' && map->map[i][j] != '1'
+			// 	&& map->map[i][j] != 'N' && map->map[i][j] != 'S'
+			// 	&& map->map[i][j] != 'E' && map->map[i][j] != 'W')
 				map->map[i][j] = '1';
 			j++;
 		}
@@ -141,6 +142,7 @@ void	replace_spaces(t_map *map)
 		i++;
 	}
 }
+
 t_player	*init_player(t_map *map)
 {
 	t_player	*player;

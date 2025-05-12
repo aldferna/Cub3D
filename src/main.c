@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/11 22:47:23 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/12 12:12:18 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || check_name_map(argv[1]))
 	{
-		ft_putstr_fd("Error: Usage: ./cub3d <map.cub>\n", 2);
+		ft_putstr_fd("Error: Usage: ./cub3D <map.cub>\n", 2);
 		return (1);
 	}
 	map = init_map(argv[1]);
