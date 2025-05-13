@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/12 20:46:58 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:45:06 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ typedef struct s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_map			*map;
-	double			pos_x;
+	double			pos_x; //posicion 'real' del personaje ((2.5, 2.5) si en el centro de celda 2,2)
 	double			pos_y;
-	double			dir_x;
+	double			dir_x; //vector dir (delta x) inicial segun orientacion personaje
 	double			dir_y;
-	double			plane_x;
+	double			plane_x; //vector perpendicular al vector anterior (ancho vision)
 	double			plane_y;
 	double			move_speed;
 	double			rot_speed;
@@ -66,15 +66,15 @@ typedef struct s_game
 
 typedef struct s_ray
 {
-	double			camera_x;
-	double			ray_dir_x;
+	double			camera_x; //proporcion usada para angular rayo a derecha/izquierda (-1 a 1)
+	double			ray_dir_x; //vector dir rayo lanzado (delta x)
 	double			ray_dir_y;
-	int				map_x;
+	double			delta_dist_x; //prop avanza en X por cada paso ('crecimiento' del rayo segun dir)
+	double			delta_dist_y;
+	int				map_x; //pos 'real' de personaje a enteros
 	int				map_y;
 	double			side_dist_x;
 	double			side_dist_y;
-	double			delta_dist_x;
-	double			delta_dist_y;
 	double			perp_wall_dist;
 	int				step_x;
 	int				step_y;
@@ -102,5 +102,6 @@ void				print_map_copy(char **map_copy);
 
 // GAME
 int					start_game(t_map *map);
+void	handle_movement(void *param);
 
 #endif

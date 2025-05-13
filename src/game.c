@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/12 21:55:51 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/13 17:46:33 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Inicializa los vectores de dirección y plano de la cámara según la orientación inicial del jugador (N,S, E, W)
+// Inicializa los vectores de dirección 
+// y plano de la cámara según la orientación inicial del jugador (N,S, E, W)
 void	init_direction(t_game *game)
 {
 	if (game->map->player->direction == 'N')
 	{
-		game->dir_x = 0.0;
+		game->dir_x = 0.0; //vector de direccion -> (0, -1) = norte
 		game->dir_y = -1.0;
-		game->plane_x = 0.66;
+		game->plane_x = 0.66; //vector perpendicular
 		game->plane_y = 0.0;
 	}
 	else if (game->map->player->direction == 'S')
@@ -45,94 +46,22 @@ void	init_direction(t_game *game)
 	}
 }
 
-// Maneja el movimiento hacia adelante (tecla W), con detección de colisiones con paredes
-void	handle_key_w(t_game *game)
+// Inicializa los parámetros de un rayo para cada columna de píxeles
+//calcula el vector de direccion del nuevo rayo
+//coordenada del personaje
+//calcula vector de distancia-> cuanto se mueve en X/Y por cda paso q avanza el rayo en dir concreta
+void	init_ray(t_game *game, t_ray *ray, int x)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-	{
-		if (game->map->map[(int)(game->pos_y)][(int)(game->pos_x + game->dir_x
-				* game->move_speed)] != '1')
-			game->pos_x += game->dir_x * game->move_speed;
-		if (game->map->map[(int)(game->pos_y + game->dir_y
-				* game->move_speed)][(int)(game->pos_x)] != '1')
-			game->pos_y += game->dir_y * game->move_speed;
-	}
-}
-
-// Maneja el movimiento hacia atrás (tecla S), con detección de colisiones con paredes
-void	handle_key_s(t_game *game)
-{
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-	{
-		if (game->map->map[(int)(game->pos_y)][(int)(game->pos_x - game->dir_x
-				* game->move_speed)] != '1')
-			game->pos_x -= game->dir_x * game->move_speed;
-		if (game->map->map[(int)(game->pos_y - game->dir_y
-				* game->move_speed)][(int)(game->pos_x)] != '1')
-			game->pos_y -= game->dir_y * game->move_speed;
-	}
-}
-
-// Maneja la rotación a la izquierda (tecla A) mediante transformación de vectores
-void	handle_key_a(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-	{
-		old_dir_x = game->dir_x;
-		game->dir_x = game->dir_x * cos(-game->rot_speed) - game->dir_y
-			* sin(-game->rot_speed);
-		game->dir_y = old_dir_x * sin(-game->rot_speed) + game->dir_y
-			* cos(-game->rot_speed);
-		old_plane_x = game->plane_x;
-		game->plane_x = game->plane_x * cos(-game->rot_speed) - game->plane_y
-			* sin(-game->rot_speed);
-		game->plane_y = old_plane_x * sin(-game->rot_speed) + game->plane_y
-			* cos(-game->rot_speed);
-	}
-}
-
-// Maneja la rotación a la derecha (tecla D) mediante transformación de vectores
-void	handle_key_d(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-	{
-		old_dir_x = game->dir_x;
-		game->dir_x = game->dir_x * cos(game->rot_speed) - game->dir_y
-			* sin(game->rot_speed);
-		game->dir_y = old_dir_x * sin(game->rot_speed) + game->dir_y
-			* cos(game->rot_speed);
-		old_plane_x = game->plane_x;
-		game->plane_x = game->plane_x * cos(game->rot_speed) - game->plane_y
-			* sin(game->rot_speed);
-		game->plane_y = old_plane_x * sin(game->rot_speed) + game->plane_y
-			* cos(game->rot_speed);
-	}
-}
-
-// Maneja la tecla ESC para cerrar la ventana del juego
-void	handle_key_esc(t_game *game)
-{
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game->mlx);
-}
-
-// Función principal que coordina el manejo de todas las teclas
-void	handle_movement(void *param)
-{
-	t_game	*game;
-
-	game = (t_game *)param;
-	handle_key_w(game);
-	handle_key_s(game);
-	handle_key_a(game);
-	handle_key_d(game);
-	handle_key_esc(game);
+	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0; //proporcio de desvio/angulacion segun pixel en X
+	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x; //delta x vector dir nuevo rayo
+	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x; //(vector central + desviacion)
+	
+	ray->map_x = (int)game->pos_x;
+	ray->map_y = (int)game->pos_y;
+	
+	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x); //delta x vector distancia
+	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
+	ray->hit = 0;
 }
 
 // Dibuja el cielo y el suelo con los colores definidos en el mapa
@@ -162,19 +91,6 @@ void	draw_background(t_game *game)
 		}
 		y++;
 	}
-}
-
-// Inicializa los parámetros de un rayo para cada columna de píxeles
-void	init_ray(t_game *game, t_ray *ray, int x)
-{
-	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0;
-	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
-	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x;
-	ray->map_x = (int)game->pos_x;
-	ray->map_y = (int)game->pos_y;
-	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x);
-	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
-	ray->hit = 0;
 }
 
 // Calcula la dirección de paso del rayo y las distancias iniciales
