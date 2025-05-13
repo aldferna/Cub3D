@@ -6,7 +6,7 @@
 /*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/12 19:46:16 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:24:48 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,6 @@ t_player	*init_player(t_map *map)
 			if (map->map[y][x] == 'N' || map->map[y][x] == 'S'
 				|| map->map[y][x] == 'E' || map->map[y][x] == 'W')
 			{
-				player->x = x;
-				player->y = y;
 				player->init_x = x;
 				player->init_y = y;
 				player->direction = map->map[y][x];

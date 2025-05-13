@@ -6,7 +6,7 @@
 /*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/12 19:46:28 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/12 20:10:14 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ int	main(int argc, char **argv)
 		free(map);
 		return (1);
 	}
+	start_game(map);
 	return (0);
 }

@@ -9,13 +9,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRCS = 	./src/main.c \
 		./src/init_info.c \
 		./src/check_map.c \
+		./src/game.c \
 
 OBJS = $(SRCS:.c=.o)
 
 MINILIBX := ./MLX42/build
 MLX_HEADERS := -I$(MINILIBX) -I./inc
 
-LIBRARY := -L$(MINILIBX) -ldl -lglfw -pthread -lm
+LIBRARY := -L$(MINILIBX) -lmlx42 -ldl -lglfw -pthread -lm
 
 all: $(NAME)
 
