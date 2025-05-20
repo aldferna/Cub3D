@@ -50,9 +50,3 @@ re: fclean all
 #  808  cmake --build build -j4
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
-#faltan los 3 "mapfail" que he puesto en el proyecto
-
-#➜  cubgit git:(main) ✗ make && ./cub3D map.cub 
-#make: Nothing to be done for 'all'.
-#Error: Map is not surrounded by walls
-#Error: Invalid map

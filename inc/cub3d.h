@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/13 17:45:06 by aldara           ###   ########.fr       */
+/*   Updated: 2025/05/20 18:53:50 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,24 +69,24 @@ typedef struct s_ray
 	double			camera_x; //proporcion usada para angular rayo a derecha/izquierda (-1 a 1)
 	double			ray_dir_x; //vector dir rayo lanzado (delta x)
 	double			ray_dir_y;
-	double			delta_dist_x; //prop avanza en X por cada paso ('crecimiento' del rayo segun dir)
+	double			delta_dist_x; //cuanto debe avanzar para llegar a la siguiente X
 	double			delta_dist_y;
 	int				map_x; //pos 'real' de personaje a enteros
 	int				map_y;
-	double			side_dist_x;
-	double			side_dist_y;
-	double			perp_wall_dist;
-	int				step_x;
+	int				step_x; //direccion que toman los rayos pero en formato 1/-1
 	int				step_y;
+	double			side_dist_x; //distancia que falta para 'tocar' el lado X o Y con rspecto a pos 'real' 
+	double			side_dist_y; //van acumulando lo q se va recorreindo
+	int				side; //si el rayo avanza cruzando a trves de X o a traves de Y
 	int				hit;
-	int				side;
-	int				line_height;
-	int				draw_start;
-	int				draw_end;
+	double			perp_wall_dist; //dst entre plano de camara (no personaje) y pared
+	int				line_height; //altura pared
+	int				draw_start; // Y inicial de la pared
+	int				draw_end; // Y final
+	double			wall_x; //p exacto donde rayo golpea la pared (entre 0.0 y 1.0-> 0.0 borde izq/0.99 drch
+	int				tex_dir; //cara/orientacion q hay q dibujar
+	int				tex_x; //que columna de la textura usar
 	uint32_t		color;
-	double			wall_x;
-	int				tex_x;
-	int				tex_dir;
 }					t_ray;
 
 // PARSE

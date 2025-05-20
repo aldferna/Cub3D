@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/13 17:46:33 by aldara           ###   ########.fr       */
+/*   Updated: 2025/05/20 19:03:40 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,48 +49,17 @@ void	init_direction(t_game *game)
 // Inicializa los parámetros de un rayo para cada columna de píxeles
 //calcula el vector de direccion del nuevo rayo
 //coordenada del personaje
-//calcula vector de distancia-> cuanto se mueve en X/Y por cda paso q avanza el rayo en dir concreta
+//calcula vector de distancia-> cuanto se debe mover para avanzar en X/Y en dir concreta
 void	init_ray(t_game *game, t_ray *ray, int x)
 {
 	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0; //proporcio de desvio/angulacion segun pixel en X
 	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x; //delta x vector dir nuevo rayo
 	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x; //(vector central + desviacion)
-	
 	ray->map_x = (int)game->pos_x;
 	ray->map_y = (int)game->pos_y;
-	
 	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x); //delta x vector distancia
 	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
 	ray->hit = 0;
-}
-
-// Dibuja el cielo y el suelo con los colores definidos en el mapa
-void	draw_background(t_game *game)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < HEIGHT / 2)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(game->img, x, y, game->map->s_col);
-			x++;
-		}
-		y++;
-	}
-	while (y < HEIGHT)
-	{
-		x = 0;
-		while (x < WIDTH)
-		{
-			mlx_put_pixel(game->img, x, y, game->map->f_col);
-			x++;
-		}
-		y++;
-	}
 }
 
 // Calcula la dirección de paso del rayo y las distancias iniciales
@@ -127,7 +96,7 @@ void	perform_dda(t_game *game, t_ray *ray)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
-			ray->side = 0;
+			ray->side = 0; //cruza linea vertical
 		}
 		else
 		{
@@ -163,6 +132,7 @@ void	calc_distance_and_height(t_ray *ray)
 }
 
 // Calcula el punto exacto donde el rayo golpea la pared
+//para saber q parte de la textura aplicar a esa columna
 void	calc_wall_x(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
@@ -172,7 +142,7 @@ void	calc_wall_x(t_game *game, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-// Determina qué textura usar (norte, sur, este, oeste) según la orientación de la pared
+// Determina qué textura usar (norte, sur, este, oeste) según donde impactó y vector de dirección
 void	set_texture_direction(t_ray *ray)
 {
 	if (ray->side == 0 && ray->ray_dir_x > 0)
@@ -185,8 +155,8 @@ void	set_texture_direction(t_ray *ray)
 		ray->tex_dir = 0;
 }
 
-// Calcula la coordenada X específica dentro de la textura
-void	calc_texture_x(t_game *game, t_ray *ray)
+// Calcula que columan de la textura usar e invierte la textura dep de orientación
+void	calc_texture_column(t_game *game, t_ray *ray)
 {
 	mlx_texture_t	*tex;
 
@@ -199,18 +169,18 @@ void	calc_texture_x(t_game *game, t_ray *ray)
 	else
 		tex = game->west_tex;
 	ray->tex_x = (int)(ray->wall_x * tex->width);
-	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1
+	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1 //invierte la textura
 			&& ray->ray_dir_y < 0))
 		ray->tex_x = tex->width - ray->tex_x - 1;
 }
 
 // Coordina los cálculos de altura de pared y texturas
-void	calc_wall_height(t_game *game, t_ray *ray)
+void	calc_wall_height_and_texture(t_game *game, t_ray *ray)
 {
 	calc_distance_and_height(ray);
 	calc_wall_x(game, ray);
 	set_texture_direction(ray);
-	calc_texture_x(game, ray);
+	calc_texture_column(game, ray);
 }
 
 // Dibuja una línea vertical de la pared en la coordenada X, aplicando la textura correspondiente
@@ -254,8 +224,37 @@ void	render_ray(t_game *game, int x)
 	init_ray(game, &ray, x);
 	calc_step_and_side_dist(game, &ray);
 	perform_dda(game, &ray);
-	calc_wall_height(game, &ray);
+	calc_wall_height_and_texture(game, &ray);
 	draw_wall_line(game, &ray, x);
+}
+
+// Dibuja el cielo y el suelo con los colores definidos en el mapa
+void	draw_background(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(game->img, x, y, game->map->s_col);
+			x++;
+		}
+		y++;
+	}
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			mlx_put_pixel(game->img, x, y, game->map->f_col);
+			x++;
+		}
+		y++;
+	}
 }
 
 // Dibuja un frame completo: primero el fondo y luego cada columna de píxeles con rayos
