@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/21 19:09:11 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:41:32 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,14 @@ void	fill_map(t_map *map)
 	int		fd;
 	int		i;
 
+
 	map->map = malloc(sizeof(char *) * map->height);
 	if (!map->map)
 	{
 		ft_putstr_fd("Error: Memory allocation failed\n", 2);
 		return ;
 	}
+
 	fd = open(map->path, O_RDONLY);
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
@@ -117,7 +119,11 @@ void	fill_map(t_map *map)
 			&& ft_strncmp(line, "SO ", 3) != 0 && ft_strncmp(line, "WE ",
 				3) != 0 && ft_strncmp(line, "EA ", 3) != 0 && ft_strncmp(line,
 				"F ", 2) != 0 && ft_strncmp(line, "C ", 2) != 0)
-			map->map[i++] = ft_strdup(line);
+				{
+					map->map[i] = malloc(sizeof(char) * map->width + 1);
+					ft_strlcpy(map->map[i], line, ft_strlen(line));
+					i++;
+				}
 		free(line);
 	}
 	close(fd);
@@ -156,6 +162,7 @@ void	replace_spaces(t_map *map)
 		map->map[i][j] = '\0';
 		i++;
 	}
+
 }
 
 t_player	*init_player(t_map *map)
@@ -322,5 +329,6 @@ while ((line = get_next_line(fd)) != NULL)
 	set_witdh_height(map);
 	fill_map(map);
 	replace_spaces(map);
+	print_map(map);
 	return (map);
 }

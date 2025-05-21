@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 21:41:46 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/21 18:06:54 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:31:07 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,19 +50,6 @@ static void	free_map_copy(char **map_copy, int height)
 	free(map_copy);
 }
 
-static void	flood_fill(char **map_copy, int x, int y, int height, int width)
-{
-	if (x < 0 || y < 0 || x >= width || y >= height)
-		return ;
-	if (map_copy[y][x] == '1' || map_copy[y][x] == 'F')
-		return ;
-	map_copy[y][x] = 'F';
-	flood_fill(map_copy, x + 1, y, height, width);
-	flood_fill(map_copy, x - 1, y, height, width);
-	flood_fill(map_copy, x, y + 1, height, width);
-	flood_fill(map_copy, x, y - 1, height, width);
-}
-
 static int	check_border_openings(t_map *map, char **map_copy)
 {
 	int	i;
@@ -92,8 +79,6 @@ static int	check_map_enclosed(t_map *map)
 {
 	char	**map_copy;
 	int		is_enclosed;
-	int		y;
-	int		x;
 
 	map_copy = copy_map(map);
 	if (!map_copy)
@@ -103,28 +88,6 @@ static int	check_map_enclosed(t_map *map)
 	{
 		free_map_copy(map_copy, map->height);
 		return (0);
-	}
-	flood_fill(map_copy, map->player->init_x, map->player->init_y, map->height,
-		map->width);
-	y = 0;
-	while (y < map->height)
-	{
-		if (map_copy[y][0] == 'F' || map_copy[y][map->width - 1] == 'F')
-		{
-			free_map_copy(map_copy, map->height);
-			return (0);
-		}
-		y++;
-	}
-	x = 0;
-	while (x < map->width)
-	{
-		if (map_copy[0][x] == 'F' || map_copy[map->height - 1][x] == 'F')
-		{
-			free_map_copy(map_copy, map->height);
-			return (0);
-		}
-		x++;
 	}
 	free_map_copy(map_copy, map->height);
 	return (1);
