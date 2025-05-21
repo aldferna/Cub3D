@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/21 19:55:05 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/21 20:10:58 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_ray
 	int				map_y;
 	int				step_x; //direccion que toman los rayos pero en formato 1/-1 (hace avanzar/retro map_x/y)
 	int				step_y;
-	double			side_dist_x; //distancia que falta para 'tocar' el lado X o Y con rspecto a pos 'real' 
+	double			side_dist_x; //distancia que falta para 'tocar' el siguiente lado X/ Y
 	double			side_dist_y; //van acumulando lo q se va recorreindo
 	int				side; //si el rayo avanza cruzando a trves de X o a traves de Y
 	int				hit;
