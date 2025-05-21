@@ -10,6 +10,7 @@ SRCS = 	./src/main.c \
 		./src/init_info.c \
 		./src/check_map.c \
 		./src/game.c \
+		./src/handle_mov.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -50,3 +51,8 @@ re: fclean all
 #  808  cmake --build build -j4
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
+
+#colores suelo/cielo
+#colores texturas (forma)
+#norminette
+#leaks

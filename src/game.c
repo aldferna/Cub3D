@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/20 19:03:40 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:39:47 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	perform_dda(t_game *game, t_ray *ray)
 }
 
 // Calcula la distancia perpendicular a la pared y la altura de la línea vertical
+// Marca el punto inicial y final para pintar
 void	calc_distance_and_height(t_ray *ray)
 {
 	if (ray->side == 0)
@@ -155,7 +156,7 @@ void	set_texture_direction(t_ray *ray)
 		ray->tex_dir = 0;
 }
 
-// Calcula que columan de la textura usar e invierte la textura dep de orientación
+// Calcula que columan de la textura usar
 void	calc_texture_column(t_game *game, t_ray *ray)
 {
 	mlx_texture_t	*tex;
@@ -169,9 +170,9 @@ void	calc_texture_column(t_game *game, t_ray *ray)
 	else
 		tex = game->west_tex;
 	ray->tex_x = (int)(ray->wall_x * tex->width);
-	if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1 //invierte la textura
-			&& ray->ray_dir_y < 0))
-		ray->tex_x = tex->width - ray->tex_x - 1;
+	// if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1 
+	// 		&& ray->ray_dir_y < 0))
+	// 	ray->tex_x = tex->width - ray->tex_x - 1;
 }
 
 // Coordina los cálculos de altura de pared y texturas
@@ -188,11 +189,14 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 {
 	int				y;
 	mlx_texture_t	*tex;
-	double			step;
+	double			step_scale;
 	double			tex_pos;
 	int				tex_y;
 	uint32_t		*pixels;
 	uint32_t		color;
+	int r;
+	int g;
+	int b;
 
 	if (ray->tex_dir == 0)
 		tex = game->north_tex;
@@ -202,22 +206,26 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 		tex = game->east_tex;
 	else
 		tex = game->west_tex;
-	step = (double)tex->height / ray->line_height;
-	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step;
+	step_scale = (double)tex->height / ray->line_height;
+	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step_scale;
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
-		tex_y = (int)tex_pos & (tex->height - 1);
-		tex_pos += step;
+		tex_y = (int)tex_pos % tex->height;
+		tex_pos += step_scale;
 		pixels = (uint32_t *)tex->pixels;
 		color = pixels[tex->width * tex_y + ray->tex_x];
+		r = (color >> 16) & 0xFF;
+		g = (color >> 8) & 0xFF;
+		b = color & 0xFF;
+		color = (b << 24) | (g << 16) | (r << 8) | 255;
 		mlx_put_pixel(game->img, x, y, color);
 		y++;
 	}
 }
 
-// Procesa completamente un rayo: inicializa, calcula trayectoria y dibuja la línea vertical
-void	render_ray(t_game *game, int x)
+// Procesa completamente un rayo: inicializa, sigue trayectoria y dibuja la línea vertical
+void	render_ray_draw_line(t_game *game, int x)
 {
 	t_ray	ray;
 
@@ -268,7 +276,7 @@ void	render_frame(void *param)
 	x = 0;
 	while (x < WIDTH)
 	{
-		render_ray(game, x);
+		render_ray_draw_line(game, x);
 		x++;
 	}
 }

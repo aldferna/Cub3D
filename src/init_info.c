@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/12 20:24:48 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:09:11 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,12 +229,11 @@ int	create_color(char *str_color)
 			2);
 		exit(2);
 	}
-	return (r << 16 | g << 8 | b);
+	return (r << 24 | g << 16 | b << 8 | 255);
 }
 
 int	check_texture(char *str, char *tag)
 {
-//	printf("%s\n", str);
 	if (!str || !str[0])
 		return (1);
 	if (ft_strncmp(str, tag, 2) == 0)

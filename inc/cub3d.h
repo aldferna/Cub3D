@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/20 18:53:50 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/21 19:55:05 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ typedef struct s_ray
 	double			ray_dir_y;
 	double			delta_dist_x; //cuanto debe avanzar para llegar a la siguiente X
 	double			delta_dist_y;
-	int				map_x; //pos 'real' de personaje a enteros
+	int				map_x; //donde se encuentra el rayo mientras avanza
 	int				map_y;
-	int				step_x; //direccion que toman los rayos pero en formato 1/-1
+	int				step_x; //direccion que toman los rayos pero en formato 1/-1 (hace avanzar/retro map_x/y)
 	int				step_y;
 	double			side_dist_x; //distancia que falta para 'tocar' el lado X o Y con rspecto a pos 'real' 
 	double			side_dist_y; //van acumulando lo q se va recorreindo

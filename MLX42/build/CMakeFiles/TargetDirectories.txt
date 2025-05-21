@@ -1,7 +1,7 @@
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/mlx42.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/edit_cache.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/rebuild_cache.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/list_install_components.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/install.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/install/local.dir
-/home/aldara/Desktop/cuby/MLX42/build/CMakeFiles/install/strip.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/mlx42.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/edit_cache.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/rebuild_cache.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/list_install_components.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/install.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/install/local.dir
+/home/aldferna/Desktop/cubgit/MLX42/build/CMakeFiles/install/strip.dir
