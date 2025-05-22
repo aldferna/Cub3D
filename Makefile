@@ -11,6 +11,7 @@ SRCS = 	./src/main.c \
 		./src/check_map.c \
 		./src/game.c \
 		./src/handle_mov.c \
+		./src/utils.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -52,7 +53,15 @@ re: fclean all
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
 
-#colores suelo/cielo
-#colores texturas (forma)
+#PARSEO:
+#C 225,30,0,
+#C 225,30,,0
+#da este error cuaando el jugador esta en el borde
+#   cubgit git:(main) ✗ make && ./cub3D map.cub
+#	make: Nothing to be done for 'all'.
+#	Error: More than one player
+#gestionar tabulacion en parseo
+
 #norminette
-#leaks
+#leaks:
+

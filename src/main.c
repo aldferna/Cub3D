@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/12 20:10:14 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/05/22 19:28:04 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void free_resources(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while(map->map[i])
+	{
+		free(map->map[i]);
+		i++;	
+	}
+	free(map->map);
+	free(map->path);
+	free(map->floor_color);
+	free(map->sky_color);
+	free(map->no_texture);
+	free(map->so_texture);
+	free(map->we_texture);
+	free(map->ea_texture);
+	free(map->player);
+}
 
 static int	check_name_map(char *str)
 {
@@ -28,7 +49,6 @@ static int	check_name_map(char *str)
 int	main(int argc, char **argv)
 {
 	t_map		*map;
-	t_player	*player;
 
 	if (argc != 2 || check_name_map(argv[1]))
 	{
@@ -36,12 +56,11 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map = init_map(argv[1]);
-	player = init_player(map);
-	map->player = player;
+	map->player = init_player(map);
 	if (check_map(map) == 0)
 	{
 		ft_putstr_fd("Error: Invalid map\n", 2);
-		free(map->player);
+		free_resources(map);
 		free(map);
 		return (1);
 	}

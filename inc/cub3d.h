@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/21 20:10:58 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:52:02 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_ray
 	int				step_x; //direccion que toman los rayos pero en formato 1/-1 (hace avanzar/retro map_x/y)
 	int				step_y;
 	double			side_dist_x; //distancia que falta para 'tocar' el siguiente lado X/ Y
-	double			side_dist_y; //van acumulando lo q se va recorreindo
+	double			side_dist_y; //van acumulando lo q se va recorriendo
 	int				side; //si el rayo avanza cruzando a trves de X o a traves de Y
 	int				hit;
 	double			perp_wall_dist; //dst entre plano de camara (no personaje) y pared
@@ -92,16 +92,15 @@ typedef struct s_ray
 // PARSE
 t_map				*init_map(char *map_path);
 t_player			*init_player(t_map *map);
-
-// CHECK MAP
 int					check_map(t_map *map);
+
+// GAME
+int					start_game(t_map *map);
+void				handle_movement(void *param);
 
 // UTILS
 void				print_map(t_map *map);
 void				print_map_copy(char **map_copy);
-
-// GAME
-int					start_game(t_map *map);
-void	handle_movement(void *param);
+void				clean_buffer(int fd);
 
 #endif

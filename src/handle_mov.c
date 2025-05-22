@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mov.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:43:24 by aldara            #+#    #+#             */
-/*   Updated: 2025/05/13 17:45:59 by aldara           ###   ########.fr       */
+/*   Updated: 2025/05/22 17:00:55 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Maneja el movimiento hacia adelante (tecla W), con detección de colisiones con paredes
 void	handle_key_w(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
@@ -26,7 +25,6 @@ void	handle_key_w(t_game *game)
 	}
 }
 
-// Maneja el movimiento hacia atrás (tecla S), con detección de colisiones con paredes
 void	handle_key_s(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
@@ -40,7 +38,6 @@ void	handle_key_s(t_game *game)
 	}
 }
 
-// Maneja la rotación a la izquierda (tecla A) mediante transformación de vectores
 void	handle_key_a(t_game *game)
 {
 	double	old_dir_x;
@@ -61,7 +58,6 @@ void	handle_key_a(t_game *game)
 	}
 }
 
-// Maneja la rotación a la derecha (tecla D) mediante transformación de vectores
 void	handle_key_d(t_game *game)
 {
 	double	old_dir_x;
@@ -82,14 +78,6 @@ void	handle_key_d(t_game *game)
 	}
 }
 
-// Maneja la tecla ESC para cerrar la ventana del juego
-void	handle_key_esc(t_game *game)
-{
-	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game->mlx);
-}
-
-// Función principal que coordina el manejo de todas las teclas
 void	handle_movement(void *param)
 {
 	t_game	*game;
@@ -99,5 +87,6 @@ void	handle_movement(void *param)
 	handle_key_s(game);
 	handle_key_a(game);
 	handle_key_d(game);
-	handle_key_esc(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx);
 }
