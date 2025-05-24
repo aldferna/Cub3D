@@ -35,8 +35,23 @@ C 225,30,0
 100000000011000001110111111111111
 111111111111111111111111111111111
 ```
-1 and spaces - Walls
-0 - Floor
+1 and spaces - Walls  
+0 - Floor  
+
+## How to use:
+1. First you will need to clone and compile the [MLX42 library](https://github.com/codam-coding-college/MLX42).
+2. Clone the repository:
+```c
+git clone https://github.com/aldferna/Cub3D.git
+```
+3. Compile it:
+```c
+make
+```
+4. Execute with a valid map:
+```c
+./cub3D map.cub
+```
 
 ##
 Made in collaboration with [Luis Martín](https://github.com/luuismrtn).
