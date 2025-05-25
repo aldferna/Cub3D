@@ -2,7 +2,7 @@
 
 ## Cub3D 🎮
 
-Cub3D is a 42 school team project in which you will create a dynamic view inside a 3D maze. Using the [Codam library](https://github.com/codam-coding-college/MLX42), we must implement raycasting in the style of the famous [Wolfenstein 3D game](http://users.atw.hu/wolf3d/).   
+Cub3D is a 42 school team project in which you will create a dynamic view inside a 3D maze. Using the [Codam library](https://github.com/codam-coding-college/MLX42), we must implement raycasting in the style of the famous [Wolfenstein 3D game](https://www.retrogames.cz/play_408-DOS.php).   
 
 <p float="left">
   <img src="https://reactive.so/static/assets/delta-dist-example.png" width="300" />
@@ -39,7 +39,6 @@ C 225,30,0
 0 - Floor  
 
 ## How to use:
-1. First you will need to clone and compile the [MLX42 library](https://github.com/codam-coding-college/MLX42).
 1. Clone the repository:
 ```c
 git clone https://github.com/aldferna/Cub3D.git
