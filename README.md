@@ -40,9 +40,16 @@ C 225,30,0
 
 ## How to use:
 1. First you will need to clone and compile the [MLX42 library](https://github.com/codam-coding-college/MLX42).
-2. Clone the repository:
+1. Clone the repository:
 ```c
 git clone https://github.com/aldferna/Cub3D.git
+```
+2. Access the MLX42 directory - remove the build directory - rebuild it:
+```c
+cd MLX42
+rm -rf build
+cmake -B build
+cmake --build build -j4
 ```
 3. Compile it:
 ```c
