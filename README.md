@@ -4,10 +4,7 @@
 
 Cub3D is a 42 school team project in which you will create a dynamic view inside a 3D maze. 
 
-<img src="images/screenshot.png" alt="Texto alternativo" width="300"/>
-
-
-![Game](images/screenshot.png)
+<img src="images/screenshot.png" alt="Texto alternativo" width="500"/>
 
 Using the [Codam library](https://github.com/codam-coding-college/MLX42), we must implement raycasting in the style of the famous [Wolfenstein 3D game](https://www.retrogames.cz/play_408-DOS.php).   
 
