@@ -3,9 +3,9 @@
 ## Cub3D 🎮
 
 Cub3D is a 42 school team project in which you will create a dynamic view inside a 3D maze. 
-<p
-  <img src="images/screenshot.png" width="500" />
-</p>
+
+<img src="images/screenshot.png" alt="Texto alternativo" width="300"/>
+
 
 ![Game](images/screenshot.png)
 
