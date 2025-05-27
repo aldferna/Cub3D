@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/22 18:52:02 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:50:42 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,12 @@ int					check_map(t_map *map);
 // GAME
 int					start_game(t_map *map);
 void				handle_movement(void *param);
+void 				draw_minimap(void *param);
 
 // UTILS
 void				print_map(t_map *map);
 void				print_map_copy(char **map_copy);
 void				clean_buffer(int fd);
+void 				free_resources(t_map *map);
 
 #endif

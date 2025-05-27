@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mov.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:43:24 by aldara            #+#    #+#             */
-/*   Updated: 2025/05/22 17:00:55 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/27 18:52:15 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,9 @@ void	handle_movement(void *param)
 	handle_key_a(game);
 	handle_key_d(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
+		free_resources(game->map);
+		free(game->map);
 		mlx_close_window(game->mlx);
+	}
 }

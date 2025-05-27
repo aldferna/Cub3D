@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/21 19:39:47 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/05/27 19:28:57 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -320,6 +320,25 @@ void	load_textures(t_game *game)
 	}
 }
 
+void handle_close(void *param)
+{
+	t_game *game;
+
+	game = (t_game *)param;
+	free_resources(game->map);
+	free(game->map);
+}
+
+void game_loop(void *param)
+{
+	t_game *game;
+	
+	game = (t_game *)param;
+	handle_movement(game);
+	render_frame(game);
+	draw_minimap(game);
+}
+
 // Inicializa el juego, configura MLX42, carga texturas y ejecuta el bucle principal
 int	start_game(t_map *map)
 {
@@ -349,8 +368,10 @@ int	start_game(t_map *map)
 		mlx_terminate(game.mlx);
 		return (EXIT_FAILURE);
 	}
-	mlx_loop_hook(game.mlx, render_frame, &game);
-	mlx_loop_hook(game.mlx, handle_movement, &game);
+	mlx_loop_hook(game.mlx, game_loop, &game);
+	//mlx_loop_hook(game.mlx, handle_movement, &game);
+	//mlx_loop_hook(game.mlx, draw_minimap, &game);
+	mlx_close_hook(game.mlx, handle_close, &game);
 	mlx_loop(game.mlx);
 	mlx_delete_texture(game.north_tex);
 	mlx_delete_texture(game.south_tex);
