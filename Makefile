@@ -13,6 +13,7 @@ SRCS = 	./src/main.c \
 		./src/handle_mov.c \
 		./src/utils.c \
 		./src/minimap.c \
+		./src/bresenham.c \
 
 OBJS = $(SRCS:.c=.o)
 

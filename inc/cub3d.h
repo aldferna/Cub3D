@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/27 18:50:42 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/01 19:08:12 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,12 @@ int					check_map(t_map *map);
 // GAME
 int					start_game(t_map *map);
 void				handle_movement(void *param);
+
+// MINIMAP
 void 				draw_minimap(void *param);
+void 				draw_mini_ray(t_game *game, t_ray ray);
+void				draw_line_v(int x_init, int y_init, int *x_y_end, t_game *game);
+void				draw_line_h(int x_init, int y_init, int *x_y_end, t_game *game);
 
 // UTILS
 void				print_map(t_map *map);

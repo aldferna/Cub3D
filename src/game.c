@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/27 19:28:57 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/01 18:39:59 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void	render_ray_draw_line(t_game *game, int x)
 	init_ray(game, &ray, x);
 	calc_step_and_side_dist(game, &ray);
 	perform_dda(game, &ray);
+	draw_mini_ray(game, ray);
 	calc_wall_height_and_texture(game, &ray);
 	draw_wall_line(game, &ray, x);
 }
