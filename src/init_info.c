@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/05/22 19:20:24 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/01 20:45:20 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,23 @@ void	replace_spaces(t_map *map)
 		{
 			if (map->map[i][j] == '\n' || map->map[i][j] == '\0')
 			{
+				if (map->map[i][j - 1] == 'N' || map->map[i][j - 1] == 'S'
+				|| map->map[i][j - 1] == 'W' || map->map[i][j - 1] == 'E')
+				{
+					ft_putstr_fd("Error: Map is not surrounded by walls\n", 2);
+					exit(2);
+				}
 				while (j < map->width)
 				{
 					map->map[i][j] = map->map[i][j - 1];
 					j++;
 				}
 				break ;
+			}
+			else if (map->map[i][j] == '\t')
+			{
+				ft_putstr_fd("Error: Tabs are not allowed\n", 2);
+				exit(2);
 			}
 			else if (ft_isspace(map->map[i][j]))
 				map->map[i][j] = '1';
@@ -160,6 +171,22 @@ t_player	*init_player(t_map *map)
 	return (player);
 }
 
+int count_commas(char *str)
+{
+	int i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			count++;
+		i++;
+	}
+	return count;
+}
+
 int	create_color(char *str_color)
 {
 	int		i;
@@ -183,7 +210,7 @@ int	create_color(char *str_color)
 	i = 0;
 	while (rgb[i])
 		i++;
-	if (i != 3)
+	if (i != 3 || count_commas(str_color) > 2)
 	{
 		ft_putstr_fd("Error: Color syntax: [0,0,0]\n", 2);
 		exit(2);

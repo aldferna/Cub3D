@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/01 19:08:12 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/01 19:56:45 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_ray
 t_map				*init_map(char *map_path);
 t_player			*init_player(t_map *map);
 int					check_map(t_map *map);
+int					is_map_surrounded(t_map *map);
 
 // GAME
 int					start_game(t_map *map);
@@ -109,5 +110,6 @@ void				print_map(t_map *map);
 void				print_map_copy(char **map_copy);
 void				clean_buffer(int fd);
 void 				free_resources(t_map *map);
+void				free_map_copy(char **map_copy, int height);
 
 #endif

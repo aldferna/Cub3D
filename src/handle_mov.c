@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:43:24 by aldara            #+#    #+#             */
-/*   Updated: 2025/05/27 18:52:15 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/01 20:36:00 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	handle_movement(void *param)
 		free_resources(game->map);
 		free(game->map);
 		mlx_close_window(game->mlx);
+		exit(2);
 	}
 }

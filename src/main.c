@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/05/22 19:28:04 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/01 19:53:27 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void free_resources(t_map *map)
-{
-	int i;
-
-	i = 0;
-	while(map->map[i])
-	{
-		free(map->map[i]);
-		i++;	
-	}
-	free(map->map);
-	free(map->path);
-	free(map->floor_color);
-	free(map->sky_color);
-	free(map->no_texture);
-	free(map->so_texture);
-	free(map->we_texture);
-	free(map->ea_texture);
-	free(map->player);
-}
 
 static int	check_name_map(char *str)
 {
