@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/01 19:53:27 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 17:44:36 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 static int	check_name_map(char *str)
 {
@@ -27,15 +27,21 @@ static int	check_name_map(char *str)
 
 int	main(int argc, char **argv)
 {
-	t_map		*map;
+	t_map	*map;
 
 	if (argc != 2 || check_name_map(argv[1]))
 	{
 		ft_putstr_fd("Error: Usage: ./cub3D <map.cub>\n", 2);
 		return (1);
 	}
-	map = init_map(argv[1]);
-	map->player = init_player(map);
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return(ft_putstr_fd("Error: Map memory allocation failed\n", 2), 1);
+	init_map(argv[1], map);
+	map->player = malloc(sizeof(t_player));
+	if (!map->player)
+		return (ft_putstr_fd("Error: Player memory allocation failed\n", 2), 1);
+	init_player(map);
 	if (check_map(map) == 0)
 	{
 		ft_putstr_fd("Error: Invalid map\n", 2);

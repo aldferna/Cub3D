@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:48:12 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/01 19:53:30 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 17:48:18 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void print_map_copy(char **map_copy)
+void	print_map_copy(char **map_copy)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map_copy[i])
@@ -55,6 +55,16 @@ void	clean_buffer(int fd)
 		free(line);
 }
 
+int	get_width(char *line)
+{
+	int	width;
+
+	width = 0;
+	while (line[width] != '\n' && line[width] != '\0')
+		width++;
+	return (width);
+}
+
 void	free_map_copy(char **map_copy, int height)
 {
 	int	i;
@@ -68,15 +78,15 @@ void	free_map_copy(char **map_copy, int height)
 	free(map_copy);
 }
 
-void free_resources(t_map *map)
+void	free_resources(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(map->map[i])
+	while (map->map[i])
 	{
 		free(map->map[i]);
-		i++;	
+		i++;
 	}
 	free(map->map);
 	free(map->path);

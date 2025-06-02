@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_map.c                                        :+:      :+:    :+:   */
+/*   check_map_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 21:41:46 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/01 20:42:20 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 14:01:39 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static int checker(t_map map, int x, int y, int *player)
+static int	checker(t_map map, int x, int y, int *player)
 {
-	if (map.map[y][x] && map.map[y][x] != '1' && map.map[y][x] != '0' 
-		&& map.map[y][x] != 'N' && map.map[y][x] != 'S'
-		&& map.map[y][x] != 'E' && map.map[y][x] != 'W'
-		&& ft_isspace(map.map[y][x]) == 0)
+	if (map.map[y][x] && map.map[y][x] != '1' && map.map[y][x] != '0'
+		&& map.map[y][x] != 'N' && map.map[y][x] != 'S' && map.map[y][x] != 'E'
+		&& map.map[y][x] != 'W' && ft_isspace(map.map[y][x]) == 0)
 	{
 		ft_putstr_fd("Error: Invalid character in map\n", 2);
 		exit(2);
 	}
-	if (map.map[y][x] == 'N' || map.map[y][x] == 'S'
-		|| map.map[y][x] == 'E' || map.map[y][x] == 'W')
+	if (map.map[y][x] == 'N' || map.map[y][x] == 'S' || map.map[y][x] == 'E'
+		|| map.map[y][x] == 'W')
 	{
 		if ((*player) == 1)
 		{

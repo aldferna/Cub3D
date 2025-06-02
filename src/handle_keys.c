@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_mov.c                                       :+:      :+:    :+:   */
+/*   handle_keys.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 17:43:24 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/01 20:36:00 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 15:09:42 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	handle_key_d(t_game *game)
 	}
 }
 
-void	handle_movement(void *param)
+void	handle_keys(void *param)
 {
 	t_game	*game;
 
@@ -87,6 +87,7 @@ void	handle_movement(void *param)
 	handle_key_s(game);
 	handle_key_a(game);
 	handle_key_d(game);
+	mlx_scroll_hook(game->mlx, &scroll, game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 	{
 		free_resources(game->map);

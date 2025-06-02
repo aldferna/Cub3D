@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   bresenham.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/01 18:40:45 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/01 19:16:26 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 15:06:57 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../inc/cub3d.h"
 
 int	check_direction(int delta)
 {
@@ -29,7 +29,7 @@ void	swap_coordenates(int *x_init, int *y_init, int *x_y_end, char line)
 
 	if ((*x_init) <= x_y_end[0] && line == 'h')
 		return ;
-    if ((*y_init) <= x_y_end[1] && line == 'v')
+	if ((*y_init) <= x_y_end[1] && line == 'v')
 		return ;
 	aux = (*x_init);
 	(*x_init) = x_y_end[0];

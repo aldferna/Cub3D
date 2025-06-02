@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/01 18:39:59 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 14:43:56 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Inicializa los vectores de dirección 
+// Inicializa los vectores de dirección
 // y plano de la cámara según la orientación inicial del jugador (N,S, E, W)
 void	init_direction(t_game *game)
 {
 	if (game->map->player->direction == 'N')
 	{
-		game->dir_x = 0.0; //vector de direccion -> (0, -1) = norte
+		game->dir_x = 0.0; // vector de direccion -> (0, -1) = norte
 		game->dir_y = -1.0;
-		game->plane_x = 0.66; //vector perpendicular
+		game->plane_x = 0.66; // vector perpendicular
 		game->plane_y = 0.0;
 	}
 	else if (game->map->player->direction == 'S')
@@ -47,17 +47,20 @@ void	init_direction(t_game *game)
 }
 
 // Inicializa los parámetros de un rayo para cada columna de píxeles
-//calcula el vector de direccion del nuevo rayo
-//coordenada del personaje
-//calcula vector de distancia-> cuanto se debe mover para avanzar en X/Y en dir concreta
+// calcula el vector de direccion del nuevo rayo
+// coordenada del personaje
+// calcula vector de distancia-> cuanto se debe mover para avanzar en X/Y en dir concreta
 void	init_ray(t_game *game, t_ray *ray, int x)
 {
-	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0; //proporcio de desvio/angulacion segun pixel en X
-	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x; //delta x vector dir nuevo rayo
-	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x; //(vector central + desviacion)
+	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0;               
+		// proporcio de desvio/angulacion segun pixel en X
+	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
+		// delta x vector dir nuevo rayo
+	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x;
+		//(vector central + desviacion)
 	ray->map_x = (int)game->pos_x;
 	ray->map_y = (int)game->pos_y;
-	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x); //delta x vector distancia
+	ray->delta_dist_x = fabs(1.0 / ray->ray_dir_x); // delta x vector distancia
 	ray->delta_dist_y = fabs(1.0 / ray->ray_dir_y);
 	ray->hit = 0;
 }
@@ -96,7 +99,7 @@ void	perform_dda(t_game *game, t_ray *ray)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
-			ray->side = 0; //cruza linea vertical
+			ray->side = 0; // cruza linea vertical
 		}
 		else
 		{
@@ -133,7 +136,7 @@ void	calc_distance_and_height(t_ray *ray)
 }
 
 // Calcula el punto exacto donde el rayo golpea la pared
-//para saber q parte de la textura aplicar a esa columna
+// para saber q parte de la textura aplicar a esa columna
 void	calc_wall_x(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
@@ -170,7 +173,7 @@ void	calc_texture_column(t_game *game, t_ray *ray)
 	else
 		tex = game->west_tex;
 	ray->tex_x = (int)(ray->wall_x * tex->width);
-	// if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1 
+	// if ((ray->side == 0 && ray->ray_dir_x > 0) || (ray->side == 1
 	// 		&& ray->ray_dir_y < 0))
 	// 	ray->tex_x = tex->width - ray->tex_x - 1;
 }
@@ -194,9 +197,9 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 	int				tex_y;
 	uint32_t		*pixels;
 	uint32_t		color;
-	int r;
-	int g;
-	int b;
+	int				r;
+	int				g;
+	int				b;
 
 	if (ray->tex_dir == 0)
 		tex = game->north_tex;
@@ -207,7 +210,8 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 	else
 		tex = game->west_tex;
 	step_scale = (double)tex->height / ray->line_height;
-	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * step_scale;
+	tex_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2)
+		* step_scale;
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
@@ -321,21 +325,21 @@ void	load_textures(t_game *game)
 	}
 }
 
-void handle_close(void *param)
+void	handle_close(void *param)
 {
-	t_game *game;
+	t_game	*game;
 
 	game = (t_game *)param;
 	free_resources(game->map);
 	free(game->map);
 }
 
-void game_loop(void *param)
+void	game_loop(void *param)
 {
-	t_game *game;
-	
+	t_game	*game;
+
 	game = (t_game *)param;
-	handle_movement(game);
+	handle_keys(game);
 	render_frame(game);
 	draw_minimap(game);
 }
@@ -350,6 +354,7 @@ int	start_game(t_map *map)
 	game.pos_y = map->player->init_y + 0.5;
 	game.move_speed = 0.05;
 	game.rot_speed = 0.03;
+	game.scroll_speed = 0.1;
 	init_direction(&game);
 	game.mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (!game.mlx)
@@ -370,8 +375,6 @@ int	start_game(t_map *map)
 		return (EXIT_FAILURE);
 	}
 	mlx_loop_hook(game.mlx, game_loop, &game);
-	//mlx_loop_hook(game.mlx, handle_movement, &game);
-	//mlx_loop_hook(game.mlx, draw_minimap, &game);
 	mlx_close_hook(game.mlx, handle_close, &game);
 	mlx_loop(game.mlx);
 	mlx_delete_texture(game.north_tex);

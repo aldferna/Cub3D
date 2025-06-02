@@ -8,13 +8,16 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS = 	./src/main.c \
 		./src/init_info.c \
-		./src/check_map.c \
-		./src/check_map_1.c \
+		./src/init_info_utils.c \
+		./src/parse_col_tex.c \
+		./src/check_map_char.c \
+		./src/check_map_walls.c \
 		./src/game.c \
-		./src/handle_mov.c \
-		./src/utils.c \
+		./src/handle_keys.c \
+		./src/handle_scroll.c \
 		./src/minimap.c \
 		./src/bresenham.c \
+		./src/utils.c \
 
 OBJS = $(SRCS:.c=.o)
 
@@ -55,8 +58,5 @@ re: fclean all
 #  808  cmake --build build -j4
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
-
-#PARSEO:
-#tabulaciones??
 
 #norminette: init_info.c y game.c

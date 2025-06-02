@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/01 19:56:45 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/02 17:48:30 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_game
 	double			plane_y;
 	double			move_speed;
 	double			rot_speed;
+	double			scroll_speed;
 	mlx_texture_t	*north_tex;
 	mlx_texture_t	*south_tex;
 	mlx_texture_t	*east_tex;
@@ -90,14 +91,18 @@ typedef struct s_ray
 }					t_ray;
 
 // PARSE
-t_map				*init_map(char *map_path);
-t_player			*init_player(t_map *map);
+t_map				*init_map(char *map_path, t_map *map);
+void 				init_player(t_map *map);
 int					check_map(t_map *map);
 int					is_map_surrounded(t_map *map);
+int					create_color(char *str_color);
+int					check_textures(t_map map);
+void				read_file_and_fill(int fd, t_map *map);
 
 // GAME
 int					start_game(t_map *map);
-void				handle_movement(void *param);
+void				handle_keys(void *param);
+void 				scroll(double xdelta, double ydelta, void* param);
 
 // MINIMAP
 void 				draw_minimap(void *param);
@@ -111,5 +116,6 @@ void				print_map_copy(char **map_copy);
 void				clean_buffer(int fd);
 void 				free_resources(t_map *map);
 void				free_map_copy(char **map_copy, int height);
+int					get_width(char *line);
 
 #endif
