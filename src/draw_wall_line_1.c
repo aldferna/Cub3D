@@ -6,14 +6,16 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:37 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 15:01:02 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:02:59 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Calcula la distancia perpendicular a la pared y la altura de la línea vertical
-// Marca el punto inicial y final para pintar
+/**
+ * @brief Calculates the distance perpendicular to the wall and the height of the vertical line.
+ * Sets the beggining and end of the line to draw.
+ */
 void	calc_distance_and_height(t_ray *ray)
 {
 	if (ray->side == 0)
@@ -29,8 +31,9 @@ void	calc_distance_and_height(t_ray *ray)
 		ray->draw_end = HEIGHT - 1;
 }
 
-// Calcula el punto exacto donde el rayo golpea la pared
-// para saber q parte de la textura aplicar a esa columna
+/**
+ * @brief Sets the exact point where the ray hits the wall to know what texture to apply.
+ */
 void	calc_wall_x(t_game *game, t_ray *ray)
 {
 	if (ray->side == 0)
@@ -40,7 +43,9 @@ void	calc_wall_x(t_game *game, t_ray *ray)
 	ray->wall_x -= floor(ray->wall_x);
 }
 
-// Determina qué textura usar (norte, sur, este, oeste) según donde impactó y vector de dirección
+/**
+ * @brief Sets what texture to use depending on where it hited and the direction vector.
+ */
 void	set_texture_direction(t_ray *ray)
 {
 	if (ray->side == 0 && ray->ray_dir_x > 0)
@@ -53,7 +58,9 @@ void	set_texture_direction(t_ray *ray)
 		ray->tex_dir = 0;
 }
 
-// Calcula que columan de la textura usar
+/**
+ * @brief Sets what texture column to use.
+ */
 void	calc_texture_column(t_game *game, t_ray *ray)
 {
 	mlx_texture_t	*tex;
@@ -69,7 +76,9 @@ void	calc_texture_column(t_game *game, t_ray *ray)
 	ray->tex_x = (int)(ray->wall_x * tex->width);
 }
 
-// Coordina los cálculos de altura de pared y texturas
+/**
+ * @brief Coordinates the calculus.
+ */
 void	calc_wall_height_and_texture(t_game *game, t_ray *ray)
 {
 	calc_distance_and_height(ray);

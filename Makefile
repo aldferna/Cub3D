@@ -62,5 +62,3 @@ re: fclean all
 #  808  cmake --build build -j4
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
-
-#norminette: game.c

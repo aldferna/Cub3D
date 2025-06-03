@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/03 14:59:15 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/03 16:48:02 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,21 @@ typedef struct s_map
 	t_player		*player;
 }					t_map;
 
+/**
+ * @param pos_x and pos_y: Player position, ex; (2.5, 2.5)
+ * @param dir_x and dir_y: Initial direction vector according to character orientation
+ * @param plane_x and plane_y: Perpendicular vector to the previous one (width vision)
+ */
 typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_map			*map;
-	double			pos_x; //posicion 'real' del personaje ((2.5, 2.5) si en el centro de celda 2,2)
+	double			pos_x;
 	double			pos_y;
-	double			dir_x; //vector dir (delta x) inicial segun orientacion personaje
+	double			dir_x;
 	double			dir_y;
-	double			plane_x; //vector perpendicular al vector anterior (ancho vision)
+	double			plane_x;
 	double			plane_y;
 	double			move_speed;
 	double			rot_speed;
@@ -65,28 +70,43 @@ typedef struct s_game
 	mlx_texture_t	*west_tex;
 }					t_game;
 
+/**
+ * @param camera_x: Proportion used to angle the ray right/left (-1 to 1)
+ * @param ray_dir_x and ray_dir_y: Ray's direction vector
+ * @param delta_dist_x and delta_dist_y: Distance to reach next horizontal/vertical line
+ * @param map_x and map_y: Ray's position as it moves forward
+ * @param step_x and step_y: Direction taken by the rays but in 1/-1 format (moves forward/backwards map_x/y)
+ * @param side_dist_x and side_dist_y: Distance to ‘touch’ the next X/Y line (accumulative)
+ * @param side: Whether the beam moves forward through a X/Y line (side = 0 - crosses a vertical line)
+ * @param perp_wall_dist: Distance between camera plane (not player spot) and wall
+ * @param line_height: Wall height
+ * @param draw_start and draw_end: Where to start/end drawing the vertical line (wall)
+ * @param wall_x: exact point where ray hits the wall (left edge: 0.99 - right edge: 0.99)
+ * @param tex_dir: Texture that has to be draw dependin on orientation
+ * @param tex_x: Texture X column to use
+ */
 typedef struct s_ray
 {
-	double			camera_x; //proporcion usada para angular rayo a derecha/izquierda (-1 a 1)
-	double			ray_dir_x; //vector dir rayo lanzado (delta x)
+	double			camera_x;
+	double			ray_dir_x;
 	double			ray_dir_y;
-	double			delta_dist_x; //cuanto debe avanzar para llegar a la siguiente X
+	double			delta_dist_x;
 	double			delta_dist_y;
-	int				map_x; //donde se encuentra el rayo mientras avanza
+	int				map_x;
 	int				map_y;
-	int				step_x; //direccion que toman los rayos pero en formato 1/-1 (hace avanzar/retro map_x/y)
+	int				step_x;
 	int				step_y;
-	double			side_dist_x; //distancia que falta para 'tocar' el siguiente lado X/ Y
-	double			side_dist_y; //van acumulando lo q se va recorriendo
-	int				side; //si el rayo avanza cruzando a trves de X o a traves de Y
+	double			side_dist_x;
+	double			side_dist_y;
+	int				side;
 	int				hit;
-	double			perp_wall_dist; //dst entre plano de camara (no personaje) y pared
-	int				line_height; //altura pared
-	int				draw_start; // Y inicial de la pared
-	int				draw_end; // Y final
-	double			wall_x; //p exacto donde rayo golpea la pared (entre 0.0 y 1.0-> 0.0 borde izq/0.99 drch
-	int				tex_dir; //cara/orientacion q hay q dibujar
-	int				tex_x; //que columna de la textura usar
+	double			perp_wall_dist;
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double			wall_x;
+	int				tex_dir;
+	int				tex_x;
 	uint32_t		color;
 }					t_ray;
 
@@ -110,14 +130,14 @@ void				render_frame(void *param);
 void				load_textures(t_game *game);
 
 // DDA
-void	init_direction(t_game *game);
-void	init_ray(t_game *game, t_ray *ray, int x);
-void	calc_step_and_side_dist(t_game *game, t_ray *ray);
-void	perform_dda(t_game *game, t_ray *ray);
+void				init_direction(t_game *game);
+void				init_ray(t_game *game, t_ray *ray, int x);
+void				calc_step_and_side_dist(t_game *game, t_ray *ray);
+void				perform_dda(t_game *game, t_ray *ray);
 
 // DRAW WALL
-void	calc_wall_height_and_texture(t_game *game, t_ray *ray);
-void	draw_wall_line(t_game *game, t_ray *ray, int x);
+void				calc_wall_height_and_texture(t_game *game, t_ray *ray);
+void				draw_wall_line(t_game *game, t_ray *ray, int x);
 
 // MINIMAP
 void 				draw_minimap(void *param);

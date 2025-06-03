@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:32:05 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 14:52:02 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:03:50 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void load_north_south(t_game *game)
 	}
 }
 
-// Carga las cuatro texturas (norte, sur, este, oeste) desde archivos PNG
 void	load_textures(t_game *game)
 {
 	load_north_south(game);

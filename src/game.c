@@ -6,13 +6,12 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/03 14:48:33 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:09:04 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-// Dibuja el cielo y el suelo con los colores definidos en el mapa
 void	draw_background(t_game *game)
 {
 	int	x;
@@ -41,7 +40,9 @@ void	draw_background(t_game *game)
 	}
 }
 
-// Procesa completamente un rayo: inicializa, sigue trayectoria y dibuja la línea vertical
+/**
+ * @brief It processes a ray; initilization and trajectory. And draws one wall vertical column.
+ */
 void	render_ray_draw_line(t_game *game, int x)
 {
 	t_ray	ray;
@@ -54,7 +55,9 @@ void	render_ray_draw_line(t_game *game, int x)
 	draw_wall_line(game, &ray, x);
 }
 
-// Dibuja un frame completo: primero el fondo y luego cada columna de píxeles con rayos
+/**
+ * @brief Draws the complete frame: first the background, then the walls; column by column.
+ */
 void	render_frame(void *param)
 {
 	t_game	*game;
@@ -80,7 +83,9 @@ void	game_loop(void *param)
 	draw_minimap(game);
 }
 
-// Inicializa el juego, configura MLX42, carga texturas y ejecuta el bucle principal
+/**
+ * @brief Configures thr MLX, loads the textures and initialize the game.
+ */
 int	start_game(t_map *map)
 {
 	t_game	game;

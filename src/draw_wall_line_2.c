@@ -6,30 +6,40 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:41 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 15:03:53 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/03 17:05:00 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static void my_put_pixel()
+ static uint32_t set_tex_col(mlx_texture_t *tex, double *tex_pos, double step_scale, t_ray *ray)
 {
-    
-}
+    uint32_t		*pixels;
+	uint32_t		color;
+    int             tex_y;
+	int				rgb[3];
 
-// Dibuja una línea vertical de la pared en la coordenada X, aplicando la textura correspondiente
+    tex_y = (int)(*tex_pos) % tex->height;
+    (*tex_pos) += step_scale;
+    pixels = (uint32_t *)tex->pixels;
+    color = pixels[tex->width * tex_y + ray->tex_x];
+    rgb[0] = (color >> 16) & 0xFF;
+    rgb[1] = (color >> 8) & 0xFF;
+    rgb[2] = color & 0xFF;
+    color = (rgb[2] << 24) | (rgb[1] << 16) | (rgb[0] << 8) | 255;
+    return (color);
+} 
+
+/**
+ * @brief Draws the vertical line of the wall with its corresponding texture.
+ */
 void	draw_wall_line(t_game *game, t_ray *ray, int x)
 {
 	int				y;
 	mlx_texture_t	*tex;
 	double			step_scale;
 	double			tex_pos;
-	int				tex_y;
-	uint32_t		*pixels;
 	uint32_t		color;
-	int				r;
-	int				g;
-	int				b;
 
 	if (ray->tex_dir == 0)
 		tex = game->north_tex;
@@ -45,14 +55,7 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
-		tex_y = (int)tex_pos % tex->height;
-		tex_pos += step_scale;
-		pixels = (uint32_t *)tex->pixels;
-		color = pixels[tex->width * tex_y + ray->tex_x];
-		r = (color >> 16) & 0xFF;
-		g = (color >> 8) & 0xFF;
-		b = color & 0xFF;
-		color = (b << 24) | (g << 16) | (r << 8) | 255;
+        color = set_tex_col(tex, &tex_pos, step_scale, ray);
 		mlx_put_pixel(game->img, x, y, color);
 		y++;
 	}
