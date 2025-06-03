@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:48:12 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/02 17:48:18 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:21:40 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,15 @@ void	free_resources(t_map *map)
 	free(map->we_texture);
 	free(map->ea_texture);
 	free(map->player);
+}
+
+void ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght)
+{
+	map->map[i] = malloc(sizeof(char) * lenght);
+	if (!map->map[i])
+	{
+		perror("Error: Map memory alloc failed");
+		exit(2);
+	}
+	ft_strlcpy(map->map[i], str, ft_strlen(str));
 }

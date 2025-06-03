@@ -13,6 +13,10 @@ SRCS = 	./src/main.c \
 		./src/check_map_char.c \
 		./src/check_map_walls.c \
 		./src/game.c \
+		./src/game_utils.c \
+		./src/DDA_algorithm.c \
+		./src/draw_wall_line_1.c \
+		./src/draw_wall_line_2.c \
 		./src/handle_keys.c \
 		./src/handle_scroll.c \
 		./src/minimap.c \
@@ -59,4 +63,4 @@ re: fclean all
 
 #https://github.com/MariaAguiar/cub3D_invalid_map_tester
 
-#norminette: init_info.c y game.c
+#norminette: game.c

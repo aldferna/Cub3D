@@ -3,60 +3,94 @@
 /*                                                        :::      ::::::::   */
 /*   init_info_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:57:52 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/02 16:58:18 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:24:39 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	check_extra_info(char *line, int fd)
+void set_new_width(char *line, int *max_width, int *height)
 {
-	while (line && line[0] != '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
-	if (line)
-	{
-		free(line);
-		printf("Error: Data after map\n");
-		exit(2);
-	}
+	if (get_width(line) > (*max_width))
+		(*max_width) = get_width(line);
+	(*height)++;
 }
 
-void	read_file_and_fill(int fd, t_map *map)
+void	set_witdh_height(t_map *map)
 {
 	char	*line;
+	int		fd;
+	int		height;
+	int		max_width;
 
+	max_width = 0;
+	height = 0;
+	fd = open(map->path, O_RDONLY);
 	while ((line = get_next_line(fd)) != NULL)
 	{
-		if (ft_strncmp(line, "NO ", 3) == 0)
-			map->no_texture = ft_strtrim(line + 3, " \n");
-		else if (ft_strncmp(line, "SO ", 3) == 0)
-			map->so_texture = ft_strtrim(line + 3, " \n");
-		else if (ft_strncmp(line, "WE ", 3) == 0)
-			map->we_texture = ft_strtrim(line + 3, " \n");
-		else if (ft_strncmp(line, "EA ", 3) == 0)
-			map->ea_texture = ft_strtrim(line + 3, " \n");
-		else if (ft_strncmp(line, "F ", 2) == 0)
-			map->floor_color = ft_strtrim(line + 2, " \n");
-		else if (ft_strncmp(line, "C ", 2) == 0)
-			map->sky_color = ft_strtrim(line + 2, " \n");
-		else if (map->sky_color && line[0] != '\n')
+		if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0
+			|| ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ",
+				3) == 0 || ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line,
+				"C ", 2) == 0)
 		{
-			check_extra_info(line, fd);
-			break ;
+			free(line);
+			continue ;
 		}
+		if (line[0] != '\n')
+			set_new_width(line, &max_width, &height);
 		free(line);
 	}
-	clean_buffer(fd);
 	close(fd);
+	map->width = max_width;
+	map->height = height;
+}
+
+int manage_end_of_line(t_map *map, int i, int *j)
+{
+	if (map->map[i][(*j)] == '\n' || map->map[i][(*j)] == '\0')
+	{
+		if ((*j) > 0 && (map->map[i][(*j) - 1] == 'N' || map->map[i][(*j) - 1] == 'S'
+			|| map->map[i][(*j) - 1] == 'W' || map->map[i][(*j) - 1] == 'E'))
+		{
+			ft_putstr_fd("Error: Map is not surrounded by walls\n", 2);
+			exit(2);
+		}
+		while (((*j) > 0) && ((*j) < map->width))
+		{
+			map->map[i][(*j)] = map->map[i][(*j) - 1];
+			(*j)++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+void	replace_spaces(t_map *map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			if (manage_end_of_line(map, i, &j))
+			 	break;
+			else if (map->map[i][j] == '\t')
+			{
+				ft_putstr_fd("Error: Tabs are not allowed\n", 2);
+				exit(2);
+			}
+			else if (ft_isspace(map->map[i][j]))
+				map->map[i][j] = '1';
+			j++;
+		}
+		map->map[i][j] = '\0';
+		i++;
+	}
 }

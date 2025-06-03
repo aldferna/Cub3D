@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/02 17:48:30 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/03 14:59:15 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,27 @@ int					check_map(t_map *map);
 int					is_map_surrounded(t_map *map);
 int					create_color(char *str_color);
 int					check_textures(t_map map);
-void				read_file_and_fill(int fd, t_map *map);
+void				set_witdh_height(t_map *map);
+void				replace_spaces(t_map *map);
 
 // GAME
 int					start_game(t_map *map);
 void				handle_keys(void *param);
 void 				scroll(double xdelta, double ydelta, void* param);
+void 				delete_textures(t_game *game);
+void				handle_close(void *param);
+void				render_frame(void *param);
+void				load_textures(t_game *game);
+
+// DDA
+void	init_direction(t_game *game);
+void	init_ray(t_game *game, t_ray *ray, int x);
+void	calc_step_and_side_dist(t_game *game, t_ray *ray);
+void	perform_dda(t_game *game, t_ray *ray);
+
+// DRAW WALL
+void	calc_wall_height_and_texture(t_game *game, t_ray *ray);
+void	draw_wall_line(t_game *game, t_ray *ray, int x);
 
 // MINIMAP
 void 				draw_minimap(void *param);
@@ -117,5 +132,6 @@ void				clean_buffer(int fd);
 void 				free_resources(t_map *map);
 void				free_map_copy(char **map_copy, int height);
 int					get_width(char *line);
+void 				ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght);
 
 #endif
