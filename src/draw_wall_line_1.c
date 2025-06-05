@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_line_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:37 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 17:02:59 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 12:55:23 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
 /**
- * @brief Calculates the distance perpendicular to the wall and the height of the vertical line.
+ * @brief Calculates the distance perpendicular to the wall and
+ * the height of the vertical line.
  * Sets the beggining and end of the line to draw.
  */
 void	calc_distance_and_height(t_ray *ray)
@@ -32,7 +33,8 @@ void	calc_distance_and_height(t_ray *ray)
 }
 
 /**
- * @brief Sets the exact point where the ray hits the wall to know what texture to apply.
+ * @brief Sets the exact point where the ray hits the wall to
+ * know what texture to apply.
  */
 void	calc_wall_x(t_game *game, t_ray *ray)
 {
@@ -44,7 +46,8 @@ void	calc_wall_x(t_game *game, t_ray *ray)
 }
 
 /**
- * @brief Sets what texture to use depending on where it hited and the direction vector.
+ * @brief Sets what texture to use depending on where it hited
+ * and the direction vector.
  */
 void	set_texture_direction(t_ray *ray)
 {

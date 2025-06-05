@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 18:14:32 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/03 14:23:54 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 13:15:25 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@ void	fill_map(t_map *map)
 
 	fd = open(map->path, O_RDONLY);
 	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (line[0] != '\n' && ft_strncmp(line, "NO ", 3) != 0
 			&& ft_strncmp(line, "SO ", 3) != 0 && ft_strncmp(line, "WE ",
 				3) != 0 && ft_strncmp(line, "EA ", 3) != 0 && ft_strncmp(line,
 				"F ", 2) != 0 && ft_strncmp(line, "C ", 2) != 0)
-		{
-			ft_strcpy_fillmap(map, i, line, (map->width + 1));
-			i++;
-		}
+			ft_strcpy_fillmap(map, i++, line, (map->width + 1));
 		free(line);
+		line = get_next_line(fd);
 	}
 	map->map[i] = NULL;
 	close(fd);
@@ -65,7 +64,8 @@ void	read_file_and_fill(int fd, t_map *map)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		if (ft_strncmp(line, "NO ", 3) == 0)
 			map->no_texture = ft_strtrim(line + 3, " \n");
@@ -80,20 +80,17 @@ void	read_file_and_fill(int fd, t_map *map)
 		else if (ft_strncmp(line, "C ", 2) == 0)
 			map->sky_color = ft_strtrim(line + 2, " \n");
 		else if (map->sky_color && line[0] != '\n')
-		{
-			check_extra_info(line, fd);
-			break ;
-		}
+			return (check_extra_info(line, fd), clean_buffer(fd));
 		free(line);
+		line = get_next_line(fd);
 	}
 	clean_buffer(fd);
-	close(fd);
 }
 
-void init_player(t_map *map)
+void	init_player(t_map *map)
 {
-	int			x;
-	int			y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
@@ -118,7 +115,7 @@ void init_player(t_map *map)
 
 t_map	*init_map(char *map_path, t_map *map)
 {
-	int		fd;
+	int	fd;
 
 	map->path = ft_strdup(map_path);
 	fd = open(map->path, O_RDONLY);
@@ -139,7 +136,7 @@ t_map	*init_map(char *map_path, t_map *map)
 	set_witdh_height(map);
 	map->map = malloc(sizeof(char *) * (map->height + 1));
 	if (!map->map)
-	return (ft_putstr_fd("Error: Memory allocation failed\n", 2), NULL);
+		return (ft_putstr_fd("Error: Memory allocation failed\n", 2), NULL);
 	fill_map(map);
 	replace_spaces(map);
 	return (map);

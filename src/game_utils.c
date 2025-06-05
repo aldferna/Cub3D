@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:32:05 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 17:03:50 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 13:00:43 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_close(void *param)
 	free(game->map);
 }
 
-void delete_textures(t_game *game)
+void	delete_textures(t_game *game)
 {
 	mlx_delete_texture(game->north_tex);
 	mlx_delete_texture(game->south_tex);
@@ -30,9 +30,9 @@ void delete_textures(t_game *game)
 	mlx_terminate(game->mlx);
 }
 
-void load_north_south(t_game *game)
+void	load_north_south(t_game *game)
 {
-    game->north_tex = mlx_load_png(game->map->no_texture);
+	game->north_tex = mlx_load_png(game->map->no_texture);
 	if (!game->north_tex)
 	{
 		ft_putstr_fd("Error: Couldn't load north texture\n", 2);

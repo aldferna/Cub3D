@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_col_tex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:24 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/02 15:47:44 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:54:54 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ char	**check_char_split(char *str_color)
 	{
 		if (!ft_isdigit(str_color[i]) && str_color[i] != ',')
 		{
-			ft_putstr_fd("Error: Color values must be numbers separated by comas\n",
-				2);
+			ft_putstr_fd("Error: Color values must be ", 2);
+			ft_putstr_fd("numbers separated by comas.\n", 2);
 			exit(2);
 		}
 		i++;

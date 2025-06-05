@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:48:12 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/03 14:21:40 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 13:24:29 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
+/*
 void	print_map_copy(char **map_copy)
 {
 	int	i;
@@ -46,13 +46,19 @@ void	print_map(t_map *map)
 	}
 	printf("\n");
 }
+*/
 
 void	clean_buffer(int fd)
 {
 	char	*line;
 
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
+	{
 		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
 }
 
 int	get_width(char *line)
@@ -99,7 +105,7 @@ void	free_resources(t_map *map)
 	free(map->player);
 }
 
-void ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght)
+void	ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght)
 {
 	map->map[i] = malloc(sizeof(char) * lenght);
 	if (!map->map[i])

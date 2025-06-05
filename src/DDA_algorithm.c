@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   DDA_algorithm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:40:05 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/03 16:48:22 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 12:57:23 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void init_west_east(t_game *game)
+void	init_west_east(t_game *game)
 {
 	if (game->map->player->direction == 'E')
 	{
@@ -31,7 +31,8 @@ void init_west_east(t_game *game)
 }
 
 /**
- * @brief Initializes the direction vectors (and the perpendicular) depending on player orientation.
+ * @brief Initializes the direction vectors (and the perpendicular)
+ * depending on player orientation.
  */
 void	init_direction(t_game *game)
 {
@@ -55,13 +56,14 @@ void	init_direction(t_game *game)
 /**
  * @brief 1. Calculates the direction vector of the new ray.
  * 2. Sets the player coordenates.
- * 3. Calculates distance vector-> distance to reach X/Y line in an specific direction.
- * 
+ * 3. Calculates distance vector-> distance to reach X/Y line
+ * in an specific direction.
+ *
  * camera_x => deviation proportion / angulation according to the pixel in X.
  */
 void	init_ray(t_game *game, t_ray *ray, int x)
 {
-	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0;               
+	ray->camera_x = 2.0 * x / (double)WIDTH - 1.0;
 	ray->ray_dir_x = game->dir_x + game->plane_x * ray->camera_x;
 	ray->ray_dir_y = game->dir_y + game->plane_y * ray->camera_x;
 	ray->map_x = (int)game->pos_x;
@@ -72,10 +74,12 @@ void	init_ray(t_game *game, t_ray *ray, int x)
 }
 
 /**
- * @brief Calculates the step direction and initial side distances for DDA raycasting.
- * 
+ * @brief Calculates the step direction and initial side distances
+ * for DDA raycasting.
+ *
  * step => The direction for x/y movement in the map grid.
- * side_dist_x or y => The initial side distances from the player's position to the first potential grid boundary along the ray's path.
+ * side_dist_x or y => The initial side distances from the player's
+ * position to the first potential grid boundary along the ray's path.
  */
 void	calc_step_and_side_dist(t_game *game, t_ray *ray)
 {

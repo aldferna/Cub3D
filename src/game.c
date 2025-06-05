@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/03 17:09:04 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/05 13:01:11 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void	draw_background(t_game *game)
 }
 
 /**
- * @brief It processes a ray; initilization and trajectory. And draws one wall vertical column.
+ * @brief It processes a ray; initilization and trajectory.
+ * And draws one wall vertical column.
  */
 void	render_ray_draw_line(t_game *game, int x)
 {
@@ -56,7 +57,8 @@ void	render_ray_draw_line(t_game *game, int x)
 }
 
 /**
- * @brief Draws the complete frame: first the background, then the walls; column by column.
+ * @brief Draws the complete frame: first the background,
+ * then the walls; column by column.
  */
 void	render_frame(void *param)
 {

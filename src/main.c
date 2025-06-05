@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/02 17:44:36 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/05 12:52:51 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	}
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return(ft_putstr_fd("Error: Map memory allocation failed\n", 2), 1);
+		return (ft_putstr_fd("Error: Map memory allocation failed\n", 2), 1);
 	init_map(argv[1], map);
 	map->player = malloc(sizeof(t_player));
 	if (!map->player)
