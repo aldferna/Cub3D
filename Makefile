@@ -33,6 +33,7 @@ LIBRARY := -L$(MINILIBX) -lmlx42 -ldl -lglfw -pthread -lm
 all: $(NAME)
 
 $(MINILIBX)/libmlx42.a:
+	cd ./MLX42 && cmake -B build && cmake --build build -j4
 	make -C $(MINILIBX)
 
 $(NAME): $(OBJS) $(LIBFT) $(MINILIBX)/libmlx42.a
@@ -51,14 +52,9 @@ clean:
 
 fclean: clean
 	rm -f $(NAME)
+	rm -rf $(MINILIBX)
 	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
 .PHONY: all clean fclean re
-
-# Eliminar build
-#  806  cmake -B build
-#  808  cmake --build build -j4
-
-#https://github.com/MariaAguiar/cub3D_invalid_map_tester
