@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_line_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:37 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/05 12:55:23 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:11:03 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	calc_distance_and_height(t_ray *ray)
 /**
  * @brief Sets the exact point where the ray hits the wall to
  * know what texture to apply.
+ * (left edge: 0.00 - right edge: 1.00)
  */
 void	calc_wall_x(t_game *game, t_ray *ray)
 {

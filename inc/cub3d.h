@@ -6,7 +6,7 @@
 /*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:53 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/03 16:48:02 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/06 21:21:46 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,15 @@ typedef struct s_game
 /**
  * @param camera_x: Proportion used to angle the ray right/left (-1 to 1)
  * @param ray_dir_x and ray_dir_y: Ray's direction vector
- * @param delta_dist_x and delta_dist_y: Distance to reach next horizontal/vertical line
+ * @param delta_dist_x and delta_dist_y: Distance to reach next horizontal/vertical line (hipotenuse)
  * @param map_x and map_y: Ray's position as it moves forward
  * @param step_x and step_y: Direction taken by the rays but in 1/-1 format (moves forward/backwards map_x/y)
- * @param side_dist_x and side_dist_y: Distance to ‘touch’ the next X/Y line (accumulative)
+ * @param side_dist_x and side_dist_y: Distance to ‘touch’ the next X/Y line from player coord
  * @param side: Whether the beam moves forward through a X/Y line (side = 0 - crosses a vertical line)
  * @param perp_wall_dist: Distance between camera plane (not player spot) and wall
  * @param line_height: Wall height
  * @param draw_start and draw_end: Where to start/end drawing the vertical line (wall)
- * @param wall_x: exact point where ray hits the wall (left edge: 0.99 - right edge: 0.99)
+ * @param wall_x: exact point where ray hits the wall (left edge: 0.00 - right edge: 1.00)
  * @param tex_dir: Texture that has to be draw dependin on orientation
  * @param tex_x: Texture X column to use
  */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DDA_algorithm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:40:05 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/05 12:57:23 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:20:01 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_west_east(t_game *game)
 }
 
 /**
- * @brief Initializes the direction vectors (and the perpendicular)
+ * @brief Initializes the direction vector (and it's perpendicular)
  * depending on player orientation.
  */
 void	init_direction(t_game *game)
@@ -54,12 +54,12 @@ void	init_direction(t_game *game)
 }
 
 /**
- * @brief 1. Calculates the direction vector of the new ray.
- * 2. Sets the player coordenates.
- * 3. Calculates distance vector-> distance to reach X/Y line
- * in an specific direction.
- *
- * camera_x => deviation proportion / angulation according to the pixel in X.
+ * @brief 
+ * 1. Calculates camera_x, proportion used to angle the ray left/right (-1/1)
+ * 2. Calculates the direction vector of the new ray.
+ * 3. Sets the player coordenates.
+ * 4. Calculates distance vector-> distance to reach X/Y line
+ * in an specific direction, the hipotenuse.
  */
 void	init_ray(t_game *game, t_ray *ray, int x)
 {
@@ -78,8 +78,7 @@ void	init_ray(t_game *game, t_ray *ray, int x)
  * for DDA raycasting.
  *
  * step => The direction for x/y movement in the map grid.
- * side_dist_x or y => The initial side distances from the player's
- * position to the first potential grid boundary along the ray's path.
+ * side_dist_x or y => The distance from the player's coordenate.
  */
 void	calc_step_and_side_dist(t_game *game, t_ray *ray)
 {

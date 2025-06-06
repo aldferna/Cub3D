@@ -3,16 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_line_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:41 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/05 12:51:51 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/06 21:29:59 by aldara           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-static uint32_t	set_tex_col(mlx_texture_t *tex, double *tex_pos,
+
+/**
+ * @brief Find the color of a specific pixel from a vertical slice of a texture
+ * based on the current position and ray data, then converts it to RGBA format.
+ *
+ * 1. Calculates the Y coordinate in the texture (`tex_y`) based on the current texture position.
+ * 2. Increments the texture position for the next scanline.
+ * 3. Extracts the pixel color at (`ray->tex_x`, `tex_y`) from the texture.
+ * 4. Converts the color from the texture format (usually RGB) to an RGBA format with 255 alpha.
+ */
+static uint32_t	set_pos_tex_col(mlx_texture_t *tex, double *tex_pos,
 		double step_scale, t_ray *ray)
 {
 	uint32_t	*pixels;
@@ -33,7 +43,13 @@ static uint32_t	set_tex_col(mlx_texture_t *tex, double *tex_pos,
 
 /**
  * @brief Draws the vertical line of the wall with its corresponding texture.
+ * 
+ * step_scale => Ratio: texture pixels per screen pixel 
+ * (how much to go forward in the texture for each pixel drawn on screen)
+ * 
+ * tex_pos => The starting position in the texture from which to begin drawing.
  */
+
 void	draw_wall_line(t_game *game, t_ray *ray, int x)
 {
 	int				y;
@@ -56,7 +72,7 @@ void	draw_wall_line(t_game *game, t_ray *ray, int x)
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{
-		color = set_tex_col(tex, &tex_pos, step_scale, ray);
+		color = set_pos_tex_col(tex, &tex_pos, step_scale, ray);
 		mlx_put_pixel(game->img, x, y, color);
 		y++;
 	}
