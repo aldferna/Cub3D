@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   draw_wall_line_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldara <aldara@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 15:00:41 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/06 21:29:59 by aldara           ###   ########.fr       */
+/*   Updated: 2025/06/08 13:34:18 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-
 /**
  * @brief Find the color of a specific pixel from a vertical slice of a texture
  * based on the current position and ray data, then converts it to RGBA format.
  *
- * 1. Calculates the Y coordinate in the texture (`tex_y`) based on the current texture position.
+ * 1. Calculates the Y coordinate in the texture (`tex_y`) based on the current 
+ * texture position.
  * 2. Increments the texture position for the next scanline.
  * 3. Extracts the pixel color at (`ray->tex_x`, `tex_y`) from the texture.
- * 4. Converts the color from the texture format (usually RGB) to an RGBA format with 255 alpha.
+ * 4. Converts the color from the texture format (usually RGB) to an RGBA 
+ * format with 255 alpha.
  */
 static uint32_t	set_pos_tex_col(mlx_texture_t *tex, double *tex_pos,
 		double step_scale, t_ray *ray)
