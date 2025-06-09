@@ -48,18 +48,11 @@ Either N, S, W or E for the character.
 ```c
 git clone https://github.com/aldferna/Cub3D.git
 ```
-2. Access the MLX42 directory - remove the build directory - rebuild it:
-```c
-cd MLX42
-rm -rf build
-cmake -B build
-cmake --build build -j4
-```
-3. Compile it:
+2. Compile it:
 ```c
 make
 ```
-4. Execute with a valid map:
+3. Execute with a valid map:
 ```c
 ./cub3D map.cub
 ```
