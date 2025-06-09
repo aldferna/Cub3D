@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:48:12 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/05 13:24:29 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:27:16 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-/*
+
 void	print_map_copy(char **map_copy)
 {
 	int	i;
@@ -46,7 +46,7 @@ void	print_map(t_map *map)
 	}
 	printf("\n");
 }
-*/
+
 
 void	clean_buffer(int fd)
 {
@@ -113,5 +113,5 @@ void	ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght)
 		perror("Error: Map memory alloc failed");
 		exit(2);
 	}
-	ft_strlcpy(map->map[i], str, ft_strlen(str));
+	ft_strlcpy(map->map[i], str, ft_strlen(str) + 1);
 }

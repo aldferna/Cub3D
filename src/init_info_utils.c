@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_info_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:57:52 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/05 13:23:09 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:18:07 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	manage_end_of_line(t_map *map, int i, int *j)
 			|| map->map[i][(*j) - 1] == 'W'
 			|| map->map[i][(*j) - 1] == 'E'))
 		{
-			ft_putstr_fd("Error: Map is not surrounded by walls\n", 2);
+			ft_putstr_fd("Error: Character not in within the maze\n", 2);
 			exit(2);
 		}
 		while (((*j) > 0) && ((*j) < map->width))
