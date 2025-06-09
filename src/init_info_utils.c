@@ -6,7 +6,7 @@
 /*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 16:57:52 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/09 16:18:07 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:36:06 by aldferna         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,6 @@ int	manage_end_of_line(t_map *map, int i, int *j)
 		{
 			ft_putstr_fd("Error: Character not in within the maze\n", 2);
 			exit(2);
-		}
-		while (((*j) > 0) && ((*j) < map->width))
-		{
-			map->map[i][(*j)] = map->map[i][(*j) - 1];
-			(*j)++;
 		}
 		return (1);
 	}

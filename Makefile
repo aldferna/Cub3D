@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror #-g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 
 NAME = cub3D
 
@@ -10,8 +10,8 @@ SRCS = 	./src/main.c \
 		./src/init_info.c \
 		./src/init_info_utils.c \
 		./src/parse_col_tex.c \
-		./src/check_map_char.c \
 		./src/check_map_walls.c \
+		./src/check_map_char.c \
 		./src/game.c \
 		./src/game_utils.c \
 		./src/DDA_algorithm.c \
