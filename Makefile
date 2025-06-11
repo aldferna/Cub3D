@@ -18,6 +18,7 @@ SRCS = 	./src/main.c \
 		./src/draw_wall_line_1.c \
 		./src/draw_wall_line_2.c \
 		./src/handle_keys.c \
+		./src/handle_keys_2.c \
 		./src/handle_scroll.c \
 		./src/minimap.c \
 		./src/bresenham.c \

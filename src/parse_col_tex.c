@@ -6,7 +6,7 @@
 /*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 15:15:24 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/05 12:54:54 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:59:23 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	count_commas(char *str)
 	return (count);
 }
 
-char	**check_char_split(char *str_color)
+char	**check_char_split(char *str_color, t_map *map)
 {
 	int		i;
 	char	**rgb;
@@ -59,8 +59,8 @@ char	**check_char_split(char *str_color)
 	{
 		if (!ft_isdigit(str_color[i]) && str_color[i] != ',')
 		{
-			ft_putstr_fd("Error: Color values must be ", 2);
-			ft_putstr_fd("numbers separated by comas.\n", 2);
+			ft_putstr_fd("Error: Color syntax: [0,0,0]\n", 2);
+			free_resources(map);
 			exit(2);
 		}
 		i++;
@@ -72,12 +72,13 @@ char	**check_char_split(char *str_color)
 	if (i != 3 || count_commas(str_color) > 2)
 	{
 		ft_putstr_fd("Error: Color syntax: [0,0,0]\n", 2);
+		free_resources(map);
 		exit(2);
 	}
 	return (rgb);
 }
 
-int	create_color(char *str_color)
+int	create_color(char *str_color, t_map *map)
 {
 	int		i;
 	char	**rgb;
@@ -85,16 +86,10 @@ int	create_color(char *str_color)
 	int		g;
 	int		b;
 
-	rgb = check_char_split(str_color);
+	rgb = check_char_split(str_color, map);
 	r = ft_atoi(rgb[0]);
 	g = ft_atoi(rgb[1]);
 	b = ft_atoi(rgb[2]);
-	if (r > 255 || g > 255 || b > 255)
-	{
-		ft_putstr_fd("Error: RGB channels cannot exceed value 255 (1byte)\n",
-			2);
-		exit(2);
-	}
 	i = 0;
 	while (rgb[i])
 	{
@@ -102,5 +97,12 @@ int	create_color(char *str_color)
 		i++;
 	}
 	free(rgb);
+	if (r > 255 || g > 255 || b > 255)
+	{
+		free_resources(map);
+		ft_putstr_fd("Error: RGB channels cannot exceed value 255 (1byte)\n",
+			2);
+		exit(2);
+	}
 	return (r << 24 | g << 16 | b << 8 | 255);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 18:48:12 by aldferna          #+#    #+#             */
-/*   Updated: 2025/06/09 20:26:00 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:09:26 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	free_map_copy(char **map_copy, int height)
 	free(map_copy);
 }
 
-void	free_resources(t_map *map)
+static void	free_map(t_map *map)
 {
 	int	i;
 
@@ -94,23 +94,26 @@ void	free_resources(t_map *map)
 		i++;
 	}
 	free(map->map);
-	free(map->path);
-	free(map->floor_color);
-	free(map->sky_color);
-	free(map->no_texture);
-	free(map->so_texture);
-	free(map->we_texture);
-	free(map->ea_texture);
-	free(map->player);
 }
 
-void	ft_strcpy_fillmap(t_map *map, int i, char *str, int lenght)
+void	free_resources(t_map *map)
 {
-	map->map[i] = malloc(sizeof(char) * lenght);
-	if (!map->map[i])
-	{
-		perror("Error: Map memory alloc failed");
-		exit(2);
-	}
-	ft_strlcpy(map->map[i], str, ft_strlen(str) + 1);
+	free(map->path);
+	if (map->map)
+		free_map(map);
+	if (map->floor_color)
+		free(map->floor_color);
+	if (map->sky_color)
+		free(map->sky_color);
+	if (map->no_texture)
+		free(map->no_texture);
+	if (map->so_texture)
+		free(map->so_texture);
+	if (map->we_texture)
+		free(map->we_texture);
+	if (map->ea_texture)
+		free(map->ea_texture);
+	if (map->player)
+		free(map->player);
+	free(map);
 }

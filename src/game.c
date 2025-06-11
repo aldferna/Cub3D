@@ -6,7 +6,7 @@
 /*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 18:51:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/05 13:01:11 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/11 18:06:21 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ int	start_game(t_map *map)
 		return (EXIT_FAILURE);
 	}
 	mlx_loop_hook(game.mlx, game_loop, &game);
-	mlx_close_hook(game.mlx, handle_close, &game);
 	mlx_loop(game.mlx);
 	delete_textures(&game);
 	return (EXIT_SUCCESS);

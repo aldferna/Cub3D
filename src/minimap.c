@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 18:57:04 by aldara            #+#    #+#             */
-/*   Updated: 2025/06/02 15:07:13 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/11 13:13:33 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	draw_minimap(void *param)
 	while (y < game->map->height)
 	{
 		x = 0;
-		while (x < game->map->width)
+		while (x < (int)ft_strlen(game->map->map[y]))
 		{
 			if (game->map->map[y][x] == '1')
 			{

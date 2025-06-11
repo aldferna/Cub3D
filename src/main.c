@@ -6,7 +6,7 @@
 /*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/09 14:33:59 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/05 12:52:51 by lumartin         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:50:12 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,21 @@ static int	check_name_map(char *str)
 	return (0);
 }
 
+static void	init_tmap(t_map *map)
+{
+	map->width = 0;
+	map->height = 0;
+	map->path = NULL;
+	map->no_texture = NULL;
+	map->so_texture = NULL;
+	map->we_texture = NULL;
+	map->ea_texture = NULL;
+	map->floor_color = NULL;
+	map->sky_color = NULL;
+	map->map = NULL;
+	map->player = NULL;
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	*map;
@@ -35,6 +50,7 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map = malloc(sizeof(t_map));
+	init_tmap(map);
 	if (!map)
 		return (ft_putstr_fd("Error: Map memory allocation failed\n", 2), 1);
 	init_map(argv[1], map);
@@ -45,10 +61,8 @@ int	main(int argc, char **argv)
 	if (check_map(map) == 0)
 	{
 		ft_putstr_fd("Error: Invalid map\n", 2);
-		free_resources(map);
-		free(map);
-		return (1);
+		return (free_resources(map), 1);
 	}
 	start_game(map);
-	return (0);
+	return (free_resources(map), 0);
 }

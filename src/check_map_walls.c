@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map_walls.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldferna <aldferna@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lumartin <lumartin@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 21:41:46 by lumartin          #+#    #+#             */
-/*   Updated: 2025/06/09 20:27:18 by aldferna         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:34:26 by lumartin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,28 @@ static void	flood_fill(char **map_copy, int x, int y, t_map map)
 	flood_fill(map_copy, x, y - 1, map);
 }
 
-static int	check_border_openings(t_map *map)
+static int	check_border_openings(t_map *map, char **map_copy)
 {
 	int	x;
 
 	x = 0;
-	while (x < (int)ft_strlen(map->map[0]) - 1)
+	while (x < (int)ft_strlen(map_copy[0]) - 1)
 	{
-		if (map->map[0][x] == 'F')
+		if (map_copy[0][x] == 'F')
 			return (0);
 		x++;
 	}
 	x = 0;
-	while (x < (int)ft_strlen(map->map[map->height - 1]) - 1)
+	while (x < (int)ft_strlen(map_copy[map->height - 1]) - 1)
 	{
-		if (map->map[map->height - 1][x] == 'F')
+		if (map_copy[map->height - 1][x] == 'F')
 			return (0);
 		x++;
 	}
 	x = 0;
 	while (x < map->height)
 	{
-		if (map->map[x][0] == 'F')
+		if (map_copy[x][0] == 'F')
 			return (0);
 		x++;
 	}
@@ -93,7 +93,7 @@ static int	check_map_enclosed(t_map *map)
 	if (!map_copy)
 		return (0);
 	flood_fill(map_copy, map->player->init_x, map->player->init_y, *map);
-	closed = check_border_openings(map);
+	closed = check_border_openings(map, map_copy);
 	if (!closed)
 		return (free_map_copy(map_copy, map->height), 0);
 	if (map_copy[0][0] == 'A')
