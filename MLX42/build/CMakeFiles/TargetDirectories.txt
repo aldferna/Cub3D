@@ -1,7 +1,0 @@
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/mlx42.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/edit_cache.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/rebuild_cache.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/list_install_components.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/install.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/install/local.dir
-/goinfre/lumartin/Cub3D/MLX42/build/CMakeFiles/install/strip.dir
